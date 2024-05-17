@@ -265,7 +265,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
           </div>
         </div>
         <Button
-          label={isLoading ? "Loading..." : "Edit product"}
+          label={isLoading ? "Đang load..." : "Tạo sản phẩm"}
           onClick={handleSubmit(onSubmit)}
         ></Button>
       </>

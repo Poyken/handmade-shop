@@ -13,11 +13,12 @@ export const metadata: Metadata = {
   description: "HandMade App",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const categories = await getCategories();
   return (
     <html lang="en">
       <body className={`${poppins.className} text-slate-700`}>
@@ -30,7 +31,7 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen">
             <NavBar></NavBar>
             <main className="flex-grow">{children}</main>
-            <Footer></Footer>
+            <Footer categories={categories}></Footer>
           </div>
         </CartProvider>
       </body>

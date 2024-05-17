@@ -12,7 +12,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
   if (product.reviews.length === 0) return null;
   return (
     <div>
-      <Heading title="Product Review"></Heading>
+      <Heading title="Đánh giá sản phẩm"></Heading>
       <div className="text-sm mt-2">
         {product.reviews &&
           product.reviews.map((review: any) => {
@@ -22,7 +22,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
                   <Avatar src={review?.user?.image}></Avatar>
                   <div className="font-semibold">{review?.user?.name}</div>
                   <div className="font-light">
-                    {moment(review.createDate).fromNow()}
+                    {moment(review.createDate).format("DD/MM/YYYY")}
                   </div>
                 </div>
                 <div className="mt-2">

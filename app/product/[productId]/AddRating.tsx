@@ -103,7 +103,7 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
         required
       ></Input>
       <Button
-        label={isLoading ? "Loading" : "Rate Product"}
+        label={isLoading ? "Đang load" : "Đánh giá sản phẩm"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
     </div>

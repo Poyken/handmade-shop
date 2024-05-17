@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <div>
           <Rating value={productRating} readOnly></Rating>
         </div>
-        <div>{data.reviews.length} reviews</div>
+        <div>{data.reviews.length} Đánh giá</div>
         <div>{formatPrice(data.price)}</div>
       </div>
     </div>

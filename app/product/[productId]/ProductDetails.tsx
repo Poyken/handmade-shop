@@ -9,6 +9,7 @@ import { useCart } from "@/hook/useCart";
 import { MdArrowBack, MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 interface ProductDetailsProps {
   product: any;
 }
@@ -93,71 +94,107 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <h2 className=" text-3xl font-medium text-slate-700">{product.name}</h2>
         <div className="flex items-center gap-2">
           <Rating value={productRating} readOnly></Rating>
-          <div>{product.reviews.length} reviews</div>
+          <div>{product.reviews.length} đánh giá</div>
         </div>
         <Horizontal></Horizontal>
 
         <div className="text-justify">{product.description}</div>
         <Horizontal></Horizontal>
         <div>
-          <span className="font-semibold">CATEGORY: </span>
+          <span className="font-semibold">Danh mục: </span>
           {product.category}
         </div>
         <div>
-          <span className="font-semibold">BRAND: </span> {product.brand}
+          <span className="font-semibold">Nhãn hiệu: </span> {product.brand}
         </div>
         <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
-          {product.inStock ? "In Stock" : "Out of Stock"}
+          {product.inStock ? "Còn hàng" : "Hết hàng"}
         </div>
         <Horizontal></Horizontal>
-        {isProductInCart ? (
+        {product.inStock ? (
           <>
-            <p className="mb-2 text-slate-500 flex items-center gap-1">
-              <MdCheckCircle
-                size={20}
-                className="text-teal-400"
-              ></MdCheckCircle>
-              <span>Product added to cart</span>
-            </p>
-            <div className="max-w-[300px]">
-              <Button
-                label="View Cart"
-                outline
-                onClick={() => {
-                  router.push("/cart");
-                }}
-              ></Button>
-              <Link
-                href={"/"}
-                className="text-slate-500 flex items-center gap-1 mt-2"
-              >
-                <MdArrowBack></MdArrowBack>
-                <span>Continue Shopping</span>
-              </Link>
-            </div>
+            {isProductInCart ? (
+              <>
+                <p className="mb-2 text-slate-500 flex items-center gap-1">
+                  <MdCheckCircle
+                    size={20}
+                    className="text-teal-400"
+                  ></MdCheckCircle>
+                  <span>Sản phẩm đã được thêm vào giỏ hàng</span>
+                </p>
+                <div className="max-w-[300px]">
+                  <Button
+                    label="Xem giỏ hàng"
+                    outline
+                    onClick={() => {
+                      router.push("/cart");
+                    }}
+                  ></Button>
+                  <Link
+                    href={"/"}
+                    className="text-slate-500 flex items-center gap-1 mt-2"
+                  >
+                    <MdArrowBack></MdArrowBack>
+                    <span>Tiếp tục mua sắm</span>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <SetColor
+                  cartProduct={cartProduct}
+                  images={product.images}
+                  handleColorSelect={handleColorSelect}
+                ></SetColor>
+                <Horizontal></Horizontal>
+                <SetQuantity
+                  cartProduct={cartProduct}
+                  handleQtyIncrease={handleQtyIncrease}
+                  handleQtyDecrease={handleQtyDecrease}
+                ></SetQuantity>
+                <Horizontal></Horizontal>
+                <div className="max-w-[300px]">
+                  <Button
+                    label="Thêm vào giỏ hàng"
+                    onClick={() => {
+                      handleAddProductToCart(cartProduct);
+                    }}
+                  ></Button>
+                </div>
+              </>
+            )}
           </>
         ) : (
           <>
-            <SetColor
-              cartProduct={cartProduct}
-              images={product.images}
-              handleColorSelect={handleColorSelect}
-            ></SetColor>
-            <Horizontal></Horizontal>
-            <SetQuantity
-              cartProduct={cartProduct}
-              handleQtyIncrease={handleQtyIncrease}
-              handleQtyDecrease={handleQtyDecrease}
-            ></SetQuantity>
-            <Horizontal></Horizontal>
-            <div className="max-w-[300px]">
-              <Button
-                label="Add to Cart"
-                onClick={() => {
-                  handleAddProductToCart(cartProduct);
-                }}
-              ></Button>
-            </div>
+            <>
+              <SetColor
+                cartProduct={cartProduct}
+                images={product.images}
+                handleColorSelect={handleColorSelect}
+              ></SetColor>
+              <Horizontal></Horizontal>
+              <SetQuantity
+                cartProduct={cartProduct}
+                handleQtyIncrease={handleQtyIncrease}
+                handleQtyDecrease={handleQtyDecrease}
+              ></SetQuantity>
+              <Horizontal></Horizontal>
+              <div className="max-w-[300px]">
+                <Button
+                  label="Thêm vào giỏ hàng"
+                  onClick={() => {
+                    toast.error("Sản phẩm đã hết hàng");
+                  }}
+                ></Button>
+              </div>
+            </>
+            <Link
+              href={"/"}
+              className="text-slate-500 flex items-center gap-1 mt-2"
+            >
+              <MdArrowBack></MdArrowBack>
+              <span>Tiếp tục mua sắm</span>
+            </Link>
           </>
         )}
       </div>

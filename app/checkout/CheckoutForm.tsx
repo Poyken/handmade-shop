@@ -61,22 +61,25 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   return (
     <form onSubmit={handleSubmit} id="payment-form">
       <div className="mb-6">
-        <Heading title="Enter your details to complete checkout"></Heading>
+        <Heading title="Nhập thông tin để hoàn tất thanh toán"></Heading>
       </div>
-      <h2 className="font-semibold mb-2">Address Information</h2>
+      <h2 className="font-semibold mb-2">Thông tin địa chỉ</h2>
       <AddressElement
-        options={{ mode: "shipping", allowedCountries: ["US", "KE"] }}
+        options={{
+          mode: "shipping",
+          allowedCountries: ["US", "KE", "NG", "GH", "ZM", "VN"],
+        }}
       ></AddressElement>
-      <h2 className="font-semibold mt-4 mb2 ">Payment Information</h2>
+      <h2 className="font-semibold mt-4 mb2 ">Thông tin thanh toán</h2>
       <PaymentElement
         id="payment-element"
         options={{ layout: "tabs" }}
       ></PaymentElement>
       <div className="py-4 text-center text-slate-700 text-4xl font-bold">
-        Total: {formattedPrice}
+        Tổng: {formattedPrice}
       </div>
       <Button
-        label={isLoading ? "Processing" : "Pay now"}
+        label={isLoading ? "Đang xử lý" : "Thanh toán ngay"}
         disabled={isLoading || !stripe || !elements}
         onClick={() => {}}
       ></Button>

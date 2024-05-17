@@ -111,14 +111,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       ></Input>
 
       <Button
-        label={isLoading ? "Loading" : "Sign Up"}
+        label={isLoading ? "Đang load" : "Đăng kí"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
 
       <p className="text-sm">
-        Already have an account?{" "}
+        Bạn đã có tài khoản?{" "}
         <Link className="underline" href={"/login"}>
-          Log in
+          Đăng nhập
         </Link>
       </p>
     </>

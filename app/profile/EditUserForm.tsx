@@ -80,7 +80,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         {/* Form fields for editing user information */}
         <Input
           id="name"
-          label="Name"
+          label="Tên"
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -96,7 +96,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         />
         <Input
           id="hashedPassword"
-          label="Password"
+          label="Mật khẩu"
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -105,7 +105,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         />
         <Input
           id="phone"
-          label="Phone"
+          label="Số điện thoại"
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -114,7 +114,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         {/* Add other input fields for other user properties */}
 
         <Button
-          label={isLoading ? "Loading..." : "Save Changes"}
+          label={isLoading ? "Đang load..." : "Lưu thay đổi"}
           onClick={handleSubmit(onSubmit)}
         />
       </>

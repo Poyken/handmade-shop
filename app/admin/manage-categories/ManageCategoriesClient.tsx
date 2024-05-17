@@ -85,7 +85,7 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Hành động",
       width: 200,
       renderCell: (params) => {
         return (

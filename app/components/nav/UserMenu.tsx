@@ -32,10 +32,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             {currentUser ? (
               <div>
                 <Link href={"/profile"}>
-                  <MenuItem onClick={toggleOpen}>Your Profile</MenuItem>
+                  <MenuItem onClick={toggleOpen}>Thông tin của bạn</MenuItem>
                 </Link>
                 <Link href={"/orders"}>
-                  <MenuItem onClick={toggleOpen}>Your Order</MenuItem>
+                  <MenuItem onClick={toggleOpen}>Đơn hàng của bạn</MenuItem>
                 </Link>
                 <Link href={"/admin"}>
                   <MenuItem onClick={toggleOpen}>Dashboard</MenuItem>
@@ -47,16 +47,16 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     signOut();
                   }}
                 >
-                  LogOut
+                  Đăng xuất
                 </MenuItem>
               </div>
             ) : (
               <div>
                 <Link href={"/login"}>
-                  <MenuItem onClick={toggleOpen}>LogIn</MenuItem>
+                  <MenuItem onClick={toggleOpen}>Đăng nhập</MenuItem>
                 </Link>
                 <Link href={"/register"}>
-                  <MenuItem onClick={toggleOpen}>Register</MenuItem>
+                  <MenuItem onClick={toggleOpen}>Đăng kí</MenuItem>
                 </Link>
               </div>
             )}

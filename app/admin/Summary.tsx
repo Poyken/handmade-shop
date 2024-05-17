@@ -21,27 +21,27 @@ type SummaryDataType = {
 const Summary: React.FC<SummaryProps> = ({ orders, products, users }) => {
   const [summaryData, setSummaryData] = useState<SummaryDataType>({
     sale: {
-      label: "Total Sale",
+      label: "Tổng doanh thu",
       digit: 0,
     },
     products: {
-      label: "Total Products",
+      label: "Tổng số lượng sản phẩm",
       digit: 0,
     },
     orders: {
-      label: "Total Orders",
+      label: "Tổng số lượng đơn hàng",
       digit: 0,
     },
     paidOrders: {
-      label: "Paid Orders",
+      label: "Số đơn hàng đã thanh toán",
       digit: 0,
     },
     unpaidOrders: {
-      label: "Unpaid Orders",
+      label: "Số đơn hàng chưa thanh toán",
       digit: 0,
     },
     users: {
-      label: "Total Users",
+      label: "Tổng số lượng người dùng",
       digit: 0,
     },
   });
@@ -72,7 +72,7 @@ const Summary: React.FC<SummaryProps> = ({ orders, products, users }) => {
   return (
     <div className="max-w-[1150px] m-auto">
       <div className="mb-4 mt-8">
-        <Heading title="Status" center></Heading>
+        <Heading title="Thông tin trạng thái" center></Heading>
       </div>
       <div className="grid grid-cols-2 gap-3 max-h-50vh overflow-y-auto">
         {summaryKeys &&

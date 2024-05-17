@@ -39,7 +39,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
                 handleRemoveProductFromCart(item);
               }}
             >
-              Remove
+              Xóa
             </button>
           </div>
         </div>

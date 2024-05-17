@@ -86,20 +86,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         type="password"
       ></Input>
       <Button
-        label={isLoading ? "Loading" : "Login"}
+        label={isLoading ? "Đang load" : "Đăng nhập"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
 
       <div className="flex w-full">
         <p className="text-sm block mr-0">
-          Do not have an account?{" "}
+          Bạn chưa có tài khoản?{" "}
           <Link className="underline" href={"/register"}>
-            Register
+            Đăng ký
           </Link>
         </p>
         <p className="text-sm block ml-auto">
           <Link className="underline" href={"/forgot-password"}>
-            Forgot Password
+            Quên mật khẩu
           </Link>
         </p>
       </div>

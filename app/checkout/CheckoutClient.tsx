@@ -68,7 +68,7 @@ const CheckoutCLient = () => {
           ></CheckoutForm>
         </Elements>
       )}
-      {loading && <div className="text-center">Loading Checkout....</div>}
+      {loading && <div className="text-center">Thực hiện thanh toán....</div>}
       {error && (
         <div className="text-center text-rose-500">
           Something went Wrong....
@@ -76,10 +76,10 @@ const CheckoutCLient = () => {
       )}
       {paymentSuccess && (
         <div className="flex flex-col items-center gap-4">
-          <div className="text-teal-500 text-center">Payment Success</div>
+          <div className="text-teal-500 text-center">Thanh toán thành công</div>
           <div className="max-w-[220px] w-full">
             <Button
-              label="View Your Order"
+              label="Xem đơn hàng"
               onClick={() => router.push("/orders")}
             ></Button>
           </div>

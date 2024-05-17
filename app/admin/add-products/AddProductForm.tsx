@@ -268,7 +268,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
           </div>
         </div>
         <Button
-          label={isLoading ? "Loading..." : "Add product"}
+          label={isLoading ? "Đang load..." : "Thêm sản phẩm"}
           onClick={handleSubmit(onSubmit)}
         ></Button>
       </>

@@ -107,7 +107,7 @@ const AddCategoryForm = () => {
       </div>
       <div className="flex items-center justify-between">
         <Button
-          label={isLoading ? "Creating..." : "Create Category"}
+          label={isLoading ? "Đang tạo danh mục" : "Tạo danh mục"}
           disabled={isLoading}
           onClick={handleSubmit(onSubmit)}
         />

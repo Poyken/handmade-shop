@@ -21,49 +21,49 @@ const AdminNav = () => {
         <div className="flex flex-row items-center justify-between md:justify-center gap-8 md:gap-12 overflow-x-auto flex-nowrap">
           <Link href={"/admin"}>
             <AdminNavItem
-              label="Summary"
+              label="Tổng quan"
               icon={MdDashboard}
               selected={pathname === "/admin"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/add-products"}>
             <AdminNavItem
-              label="AddProducts"
+              label="Thêm sản phẩm"
               icon={MdLibraryAdd}
               selected={pathname === "/admin/add-products"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/manage-products"}>
             <AdminNavItem
-              label="ManageProducts"
+              label="Quản lý sản phẩm"
               icon={MdDns}
               selected={pathname === "/admin/manage-products"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/manage-orders"}>
             <AdminNavItem
-              label="ManageOrders"
+              label="Quản lý đơn hàng"
               icon={MdFormatListBulleted}
               selected={pathname === "/admin/manage-orders"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/manage-users"}>
             <AdminNavItem
-              label="ManageUsers"
+              label="Quản lý người dùng"
               icon={FaRegUserCircle}
               selected={pathname === "/admin/manage-users"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/add-categories"}>
             <AdminNavItem
-              label="AddCategories"
+              label="Thêm danh mục"
               icon={MdLibraryAdd}
               selected={pathname === "/admin/add-categories"}
             ></AdminNavItem>
           </Link>
           <Link href={"/admin/manage-categories"}>
             <AdminNavItem
-              label="ManageCategories"
+              label="Quản lý danh mục"
               icon={MdOutlineCategory}
               selected={pathname === "/admin/manage-categories"}
             ></AdminNavItem>
@@ -71,7 +71,7 @@ const AdminNav = () => {
         </div>
         <Link href={"/"}>
           <AdminNavItem
-            label="Back to Home"
+            label="Trở về trang chủ"
             icon={IoMdArrowBack}
             selected={pathname === "/"}
           ></AdminNavItem>

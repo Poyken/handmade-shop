@@ -7,22 +7,33 @@ import {
   AiFillTwitterCircle,
   AiFillYoutube,
 } from "react-icons/ai";
-const Footer = () => {
+interface FooterProps {
+  categories: any;
+}
+const Footer: React.FC<FooterProps> = ({ categories }) => {
   return (
     <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
       <Container>
         <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
           <FooterList>
-            <h3 className="text-base font-bold mb-2">Shop Categories</h3>
-            <Link href="/">Vòng tay và lắc tay</Link>
-            <Link href="/">Màu họa và đồ thủ công</Link>
-            <Link href="/">Móc khóa</Link>
-            <Link href="/">Hoa và lọ</Link>
-            <Link href="/">Túi đeo</Link>
-            <Link href="/">Khác</Link>
+            <h3 className="text-base font-bold mb-2">Danh mục mua sắm</h3>
+
+            {categories.map(
+              (item: any) =>
+                item.status === "active" &&
+                (item.label === "All" ? (
+                  <Link key={item.label} href={`/`}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Link key={item.label} href={`/?category=${item.label}`}>
+                    {item.label}
+                  </Link>
+                ))
+            )}
           </FooterList>
           <FooterList>
-            <h3 className="text-base font-bold mb-2">Customer Services</h3>
+            <h3 className="text-base font-bold mb-2">Dịch vụ khách hàng</h3>
             <Link href="/">Liên hệ</Link>
             <Link href="/">Chính sách vận chuyển</Link>
             <Link href="/">Trả hàng & Đổi lại</Link>

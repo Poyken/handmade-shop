@@ -49,15 +49,15 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({}) => {
           type="email"
         />
         <Button
-          label={isLoading ? "Loading" : "Reset Password"}
+          label={isLoading ? "Đang load" : "Đổi mật khẩu"}
           disabled={isLoading}
           onClick={handleSubmit(onSubmit)}
         />
       </form>
       <p className="mt-4">
-        Remember your password?{" "}
+        Quên mật khẩu?{" "}
         <Link href="/login" className="underline">
-          Login
+          Đăng nhập
         </Link>
       </p>
     </>

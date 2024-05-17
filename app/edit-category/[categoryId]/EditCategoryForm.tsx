@@ -109,7 +109,7 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
         <option value="inactive">Inactive</option>
       </select>
       <Button
-        label={isLoading ? "Loading..." : "Edit Category"}
+        label={isLoading ? "Đang load..." : "Tạo danh mục"}
         onClick={handleSubmit(onSubmit)}
         disabled={isLoading}
       />

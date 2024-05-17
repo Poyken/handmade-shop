@@ -7,9 +7,12 @@ import Heading from "@/app/components/products/Heading";
 import Status from "@/app/components/Status";
 import {
   MdAccessTimeFilled,
+  MdCancel,
   MdDeliveryDining,
   MdDone,
+  MdOutlinePublishedWithChanges,
   MdRemoveRedEye,
+  MdShoppingCartCheckout,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
 import { useCallback } from "react";
@@ -37,7 +40,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
         customer: order.user.name,
         amount: formatPrice(order.amount),
         paymentStatus: order.status,
-        date: moment(order.createdDate).fromNow(),
+        date: moment(order.createdDate).format("DD/MM/YYYY HH:mm:ss a"),
         deliveryStatus: order.deliveryStatus,
       };
     });
@@ -46,16 +49,16 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     {
       field: "id",
       headerName: "ID",
-      width: 220,
+      width: 120,
     },
     {
       field: "customer",
-      headerName: "Customer",
+      headerName: "Tên khách hàng",
       width: 220,
     },
     {
       field: "amount",
-      headerName: "Amount(VND)",
+      headerName: "Tổng tiền(VND)",
       width: 100,
       renderCell: (params) => {
         return (
@@ -65,21 +68,21 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     },
     {
       field: "paymentStatus",
-      headerName: "Payment Status",
+      headerName: "Trạng thái thanh toán",
       width: 120,
       renderCell: (params) => {
         return (
           <div>
             {params.row.paymentStatus === "pending" ? (
               <Status
-                text="pending"
+                text="Đang chờ"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.paymentStatus === "complete" ? (
               <Status
-                text="complete"
+                text="Hoàn thành"
                 icon={MdDone}
                 bg="bg-green-200"
                 color="text-green-700"
@@ -93,28 +96,28 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     },
     {
       field: "deliveryStatus",
-      headerName: "Deliver Status",
+      headerName: "Trạng thái vận chuyển",
       width: 120,
       renderCell: (params) => {
         return (
           <div>
             {params.row.deliveryStatus === "pending" ? (
               <Status
-                text="pending"
+                text="Đang chờ"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
                 color="text-slate-700"
               />
             ) : params.row.deliveryStatus === "dispatched" ? (
               <Status
-                text="dispatched"
+                text="Đã gửi "
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
               />
             ) : params.row.deliveryStatus === "delivered" ? (
               <Status
-                text="delivered"
+                text="Đã giao"
                 icon={MdDone}
                 bg="bg-green-200"
                 color="text-green-700"
@@ -128,32 +131,67 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     },
     {
       field: "date",
-      headerName: "Date",
-      width: 130,
+      headerName: "Thời gian đặt hàng",
+      width: 200,
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Hành động",
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="flex justify-between gap-4 w-full">
+          <div className="flex gap-2 w-full">
             <ActionBtn
               icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
               }}
             ></ActionBtn>
+            {params.row.deliveryStatus === "pending" && (
+              <ActionBtn
+                icon={MdCancel}
+                onClick={() => {
+                  handleDelete(params.row.id);
+                }}
+              ></ActionBtn>
+            )}
+            {params.row.paymentStatus === "pending" && (
+              <ActionBtn
+                icon={MdShoppingCartCheckout}
+                onClick={() => {
+                  router.push(`/checkout`);
+                }}
+              ></ActionBtn>
+            )}
+            {params.row.paymentStatus === "pending" && (
+              <ActionBtn
+                icon={MdOutlinePublishedWithChanges}
+                onClick={() => {
+                  router.push(`/cart`);
+                }}
+              ></ActionBtn>
+            )}
           </div>
         );
       },
     },
   ];
-
+  const handleDelete = useCallback(async (id: string) => {
+    axios
+      .delete(`/api/order/${id}`)
+      .then((res) => {
+        toast.success("Order deleted");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Failed to delete category");
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage Orders"></Heading>
+        <Heading title="Quản lý đơn hàng"></Heading>
         <Link href="/">
           <IoMdArrowBack />
         </Link>
