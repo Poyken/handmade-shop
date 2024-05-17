@@ -12,9 +12,7 @@ const EditProducts = async ({ params }: { params: IPrams }) => {
   const product = await getProductById(params);
   const user = await getCurrentUser();
   if (!product || user?.role !== "ADMIN")
-    return (
-      <NullData title="Oops! Product with the given id does not exist"></NullData>
-    );
+    return <NullData title="Sản phẩm có id đã cho không tồn tại"></NullData>;
   return (
     <div className="p-8">
       <Container>

@@ -10,12 +10,6 @@ interface IPrams {
 }
 const EditUser = async ({ params }: { params: IPrams }) => {
   const user = await getCurrentUser();
-  // const user = await getUserById(params); // Assuming there's a function to get user by ID
-  // const currentUser = await getCurrentUser();
-  // if (!user || currentUser?.id !== user.id)
-  // return (
-  // <NullData title="Oops! User with the given id does not exist or you don't have permission to edit"></NullData>
-  // );
   return (
     <div className="p-8">
       <Container>

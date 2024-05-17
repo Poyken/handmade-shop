@@ -15,7 +15,7 @@ const EditCategoryProduct = async ({ params }: { params: IParams }) => {
   const user = await getCurrentUser();
   const category = await getCategoryById(params);
   if (!category || user?.role !== "ADMIN") {
-    return <NullData title="Oops! Category with the given id does not exist" />;
+    return <NullData title="Danh mục có id đã cho không tồn tại" />;
   }
 
   return (

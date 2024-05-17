@@ -52,7 +52,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     });
   };
   if (currentUser) {
-    return <p className="text-center">Logged in. Redirecting...</p>;
+    return (
+      <p className="text-center">Đăng nhập thành công. Đang chuyển trang...</p>
+    );
   }
   return (
     <>

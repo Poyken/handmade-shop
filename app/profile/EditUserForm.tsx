@@ -18,7 +18,7 @@ interface EditUserFormProps {
 const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
   if (!user)
     return (
-      <NullData title="Oops! User with the given id does not exist or you don't have permission to edit"></NullData>
+      <NullData title="Người dùng có id đã cho không tồn tại hoặc bạn không có quyền chỉnh sửa"></NullData>
     );
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

@@ -10,9 +10,7 @@ interface IParams {
 const Category = async ({ params }: { params: IParams }) => {
   const category = await getCategoryById(params);
   if (!category) {
-    return (
-      <NullData title="Oops! Category with the given id does not exist"></NullData>
-    );
+    return <NullData title="Danh mục có id đã cho không tồn tại"></NullData>;
   }
   return (
     <div className="p-8">

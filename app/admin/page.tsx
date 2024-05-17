@@ -11,7 +11,9 @@ import NullData from "../components/NullData";
 const Admin = async () => {
   const currentUser = await getCurrentUser();
   if (!currentUser || currentUser.role !== "ADMIN") {
-    return <NullData title="Oops! Access denied"></NullData>;
+    return (
+      <NullData title="Từ chối quyền truy cập từ vai trò của bạn"></NullData>
+    );
   }
   const products = await getProducts({ category: null });
   const orders = await getOrders();

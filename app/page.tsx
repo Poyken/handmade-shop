@@ -11,7 +11,7 @@ export default async function Page({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
   if (products.length === 0) {
     return (
-      <NullData title="Opp! No products found. Click 'All' to clear filter"></NullData>
+      <NullData title="Không tìm thấy sản phẩm nào Nhấp vào 'All' để xóa bộ lọc"></NullData>
     );
   }
   function shuffleArray(array: any) {
