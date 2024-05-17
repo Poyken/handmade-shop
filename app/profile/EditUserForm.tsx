@@ -11,17 +11,15 @@ import { Suspense } from "react";
 import { useRouter } from "next/navigation";
 import hashPassword from "@/utils/hashPassword";
 import NullData from "../components/NullData";
+
 interface EditUserFormProps {
   user: any; // Assuming the user object structure
 }
 
 const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
-  if (!user)
-    return (
-      <NullData title="Người dùng có id đã cho không tồn tại hoặc bạn không có quyền chỉnh sửa"></NullData>
-    );
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -48,7 +46,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
       phone: user.phone,
       // Add other user properties here
     });
-  }, [user]);
+  }, [user, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
@@ -73,6 +71,11 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
       setIsLoading(false);
     }
   };
+
+  if (!user)
+    return (
+      <NullData title="Người dùng có id đã cho không tồn tại hoặc bạn không có quyền chỉnh sửa"></NullData>
+    );
 
   return (
     <Suspense>
