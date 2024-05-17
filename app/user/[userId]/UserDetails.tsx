@@ -12,11 +12,11 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     <div className="max-w-[300px] flex flex-col gap-2">
       <Heading title="User Detail"></Heading>
       <p>UserId: {user?.id}</p>
-      <p>UserName: {user?.name}</p>
+      <p>Tên: {user?.name}</p>
       <p>Email: {user?.email}</p>
-      <p>Role: {user?.role}</p>
-      <p>Phone: {user?.phone}</p>
-      <p>Image: </p>
+      <p>Vai trò: {user?.role}</p>
+      <p>Điện thoại: {user?.phone}</p>
+      <p>Ảnh đại diện: </p>
       {user.image && (
         <Image
           src={user.image}
@@ -27,7 +27,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
         ></Image>
       )}
       <Button
-        label="Back to Manage User"
+        label="Quay lại trang quản lý"
         onClick={() => {
           router.push("/admin/manage-users");
         }}

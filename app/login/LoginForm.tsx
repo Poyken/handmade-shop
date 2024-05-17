@@ -44,7 +44,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       if (callback?.ok) {
         router.push("/cart");
         router.refresh();
-        toast.success("Logged in");
+        toast.success("Đăng nhập thành công");
       }
       if (callback?.error) {
         toast.error(callback.error);

@@ -28,7 +28,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({}) => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating async request
     setIsLoading(false);
-    toast.success("Password reset instructions sent to your email.");
+    toast.success("Hướng dẫn đặt lại mật khẩu đã được gửi tới email của bạn.");
   };
 
   return (

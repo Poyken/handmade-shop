@@ -50,7 +50,7 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Tên",
       width: 120,
     },
     {
@@ -66,31 +66,31 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
 
     {
       field: "createdAt",
-      headerName: "CreatedAt",
-      width: 100,
+      headerName: "Được tạo lúc",
+      width: 180,
       renderCell: (params) => {
         return (
           <div className="font-bold text-slate-800">
-            {moment(params.row.createdAt).fromNow()}
+            {moment(params.row.createdAt).format("DD/MM/YYYY HH:mm:ss a")}
           </div>
         );
       },
     },
     {
       field: "updatedAt",
-      headerName: "UpdatedAt",
-      width: 100,
+      headerName: "Cập nhật lúc",
+      width: 180,
       renderCell: (params) => {
         return (
           <div className="font-bold text-slate-800">
-            {moment(params.row.updatedAt).fromNow()}
+            {moment(params.row.updatedAt).format("DD/MM/YYYY HH:mm:ss a")}
           </div>
         );
       },
     },
     {
       field: "role",
-      headerName: "Role",
+      headerName: "Vai trò",
       width: 120,
       renderCell: (params) => {
         return (
@@ -116,7 +116,7 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Hành Động",
       width: 200,
       renderCell: (params) => {
         return (
@@ -153,11 +153,11 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
           role: "USER",
         })
         .then((res) => {
-          toast.success("User status changed");
+          toast.success("Đã thay đổi trạng thái từ ADMIN -> USER ");
           router.refresh();
         })
         .catch((err) => {
-          toast.error("Oops! Something went wrong");
+          toast.error("Đã có lỗi xảy ra");
           console.log(err);
         });
     } else {
@@ -167,11 +167,11 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
           role: "ADMIN",
         })
         .then((res) => {
-          toast.success("User status changed");
+          toast.success("Đã thay đổi trạng thái từ USER -> ADMIN ");
           router.refresh();
         })
         .catch((err) => {
-          toast.error("Oops! Something went wrong");
+          toast.error("Đã có lỗi xảy ra");
           console.log(err);
         });
     }
@@ -179,25 +179,25 @@ const ManageUsersClient: React.FC<ManageUsersClientProps> = ({ users }) => {
 
   const handleDelete = useCallback(async (id: String, role: string) => {
     if (role === "ADMIN") {
-      toast.error("Admin cannot be deleted");
+      toast.error("ADMIN không thể bị xóa");
       return;
     }
-    toast("Deleting User, please wait");
+    toast("Đang xóa");
     axios
       .delete(`/api/user/${id}`)
       .then((res) => {
-        toast.success("User deleted");
+        toast.success("Đã xóa ");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Failed to delete user");
+        toast.error("Đã có lỗi khi xóa");
         console.log(err);
       });
   }, []);
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
+    <div className="max-w-[1300px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage User"></Heading>
+        <Heading title="Quản lý người dùng"></Heading>
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid

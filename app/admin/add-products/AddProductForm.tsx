@@ -38,6 +38,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
+  const [progress, setProgress] = useState(0);
   //   console.log("image>>>>>>>", images);
   const router = useRouter();
   const {
@@ -75,14 +76,14 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
     let uploadedImages: UploadedImageType[] = [];
     if (!data.category) {
       setIsLoading(false);
-      return toast.error("Category is not selected");
+      return toast.error("Không có danh mục được chọn");
     }
     if (!data.images || data.images.length === 0) {
       setIsLoading(false);
-      return toast.error("No selected Image");
+      return toast.error("Không có ảnh nào được chọn");
     }
     const handleImageUploads = async () => {
-      toast("Creating product, please wait...");
+      toast("Chờ chút, Đang tạo danh mục...");
       try {
         for (const item of data.images) {
           if (item.image) {
@@ -97,6 +98,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
                   const progress =
                     snapshot.bytesTransferred / snapshot.totalBytes;
                   console.log("Upload is " + progress + "% done");
+                  setProgress(progress);
                   switch (snapshot.state) {
                     case "paused":
                       console.log("Upload is paused");
@@ -129,7 +131,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
       } catch (error) {
         setIsLoading(false);
         console.log("Error handling image uploads", error);
-        return toast.error("Error handling image uploads");
+        return toast.error("Có lỗi khi xử lý upload ảnh");
       }
     };
     await handleImageUploads();
@@ -138,12 +140,12 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
     axios
       .post("/api/product", productData)
       .then(() => {
-        toast.success("Product created");
+        toast.success("Sản phẩm đã được tạo");
         setIsProductCreated(true);
         router.refresh();
       })
       .catch((error) => {
-        toast.error("Something went wrong when saving product to db");
+        toast.error("Đã có lỗi khi lưu data vào database");
       })
       .finally(() => {
         setIsLoading(false);
@@ -180,10 +182,10 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
   return (
     <Suspense>
       <>
-        <Heading title="Add a Product" center></Heading>
+        <Heading title="Thêm sản phẩm" center></Heading>
         <Input
           id={"name"}
-          label={"Name"}
+          label={"Tên"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -191,7 +193,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
         ></Input>
         <Input
           id={"price"}
-          label={"Price"}
+          label={"Giá bán"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -200,7 +202,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
         ></Input>
         <Input
           id={"brand"}
-          label={"Brand"}
+          label={"Nhãn hiệu"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -208,7 +210,7 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
         ></Input>
         <TextArea
           id={"description"}
-          label={"Description"}
+          label={"Mô tả"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -217,10 +219,10 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
         <CustomCheckBox
           id="inStock"
           register={register}
-          label="This product is in stock"
+          label="Sản phẩm còn hàng"
         ></CustomCheckBox>
         <div className="w-full font-medium">
-          <div className="mb-2 font-semibold">Select a Category</div>
+          <div className="mb-2 font-semibold">Chọn 1 danh mục sản phẩm</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto">
             {categories.map((item: any) => {
               if (item.label === "All") {
@@ -246,11 +248,11 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
         <div className="w-full flex flex-col flex-wrap gap-4">
           <div>
             <div className="font-bold">
-              Select the available product colors and upload their images
+              Chọn màu sắc sản phẩm có sẵn và tải lên hình ảnh của chúng
             </div>
             <div className="text-sm">
-              You must upload an image for each of the color selected otherwise
-              your color selection will be ignored
+              Bạn phải tải lên hình ảnh cho mỗi màu đã chọn nếu không lựa chọn
+              màu của bạn sẽ bị bỏ qua
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -268,7 +270,11 @@ const AddProductForm: React.FC<ICategory> = ({ categories }) => {
           </div>
         </div>
         <Button
-          label={isLoading ? "Đang load..." : "Thêm sản phẩm"}
+          label={
+            isLoading
+              ? "Đang load..." + (100 * progress).toFixed(2) + "%"
+              : "Thêm sản phẩm"
+          }
           onClick={handleSubmit(onSubmit)}
         ></Button>
       </>

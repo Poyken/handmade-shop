@@ -50,12 +50,12 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Tên",
       width: 220,
     },
     {
       field: "price",
-      headerName: "Price(VND)",
+      headerName: "Giá(VND)",
       width: 100,
       renderCell: (params) => {
         return (
@@ -65,31 +65,31 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     },
     {
       field: "category",
-      headerName: "Category",
-      width: 100,
+      headerName: "Danh mục",
+      width: 250,
     },
     {
       field: "brand",
-      headerName: "Brand",
+      headerName: "Nhãn hiệu",
       width: 100,
     },
     {
       field: "inStock",
-      headerName: "inStock",
+      headerName: "Còn hàng",
       width: 120,
       renderCell: (params) => {
         return (
           <div>
             {params.row.inStock === true ? (
               <Status
-                text="in Stock"
+                text="Còn hàng"
                 icon={MdDone}
                 bg="bg-teal-200"
                 color="text-teal-700"
               />
             ) : (
               <Status
-                text="out of Stock"
+                text="Hết hàng"
                 icon={MdClose}
                 bg="bg-rose-200"
                 color="text-rose-700"
@@ -101,7 +101,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Hành động",
       width: 200,
       renderCell: (params) => {
         return (
@@ -143,17 +143,17 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         inStock: !inStock,
       })
       .then((res) => {
-        toast.success("Product status changed");
+        toast.success("Đã thay đổi trạng thái sản phẩm");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Oops! Something went wrong");
+        toast.error("Đã có lỗi xảy ra");
         console.log(err);
       });
   }, []);
 
   const handleDelete = useCallback(async (id: string, images: any[]) => {
-    toast("Deleting Product, please wait");
+    toast("Chờ chút, Đang xóa sản phẩm");
     const handleImageDelete = async () => {
       try {
         for (const item of images) {
@@ -171,18 +171,18 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
     axios
       .delete(`/api/product/${id}`)
       .then((res) => {
-        toast.success("Product deleted");
+        toast.success("Đã xóa sản phẩm");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Failed to delete product");
+        toast.error("Đã có lỗi khi xóa sản phẩm");
         console.log(err);
       });
   }, []);
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
+    <div className="max-w-[1300px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage Products"></Heading>
+        <Heading title="Quản lý sản phẩm"></Heading>
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid

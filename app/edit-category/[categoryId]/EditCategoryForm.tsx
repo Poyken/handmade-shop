@@ -58,14 +58,14 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
     try {
       const response = await axios.patch(`/api/category/${category.id}`, data);
       if (response.status === 200) {
-        toast.success("Category edited successfully");
+        toast.success("Danh mục được sửa thành công");
         router.push("/admin/manage-categories"); // Redirect to categories page after editing
       } else {
-        toast.error("Failed to edit category");
+        toast.error("Đã có lỗi khi sửa danh mục");
       }
     } catch (error) {
       console.error("Error editing category:", error);
-      toast.error("An error occurred while editing category");
+      toast.error("Đã xảy ra lỗi khi chỉnh sửa danh mục");
     } finally {
       setIsLoading(false);
     }

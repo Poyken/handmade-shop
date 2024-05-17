@@ -68,7 +68,7 @@ export const CartContextProvider = (props: Props) => {
       } else {
         updateCart = [product];
       }
-      toast.success("Product added to cart");
+      toast.success("Sản phẩm đã được thêm vào giỏ hàng");
       localStorage.setItem("eShopCartItem", JSON.stringify(updateCart));
       return updateCart;
     });
@@ -81,7 +81,7 @@ export const CartContextProvider = (props: Props) => {
           return item.id !== product.id;
         });
         setCartProducts(filteredProducts);
-        toast.success("Product removed");
+        toast.success("Đã xóa sản phẩm");
         localStorage.setItem("eShopCartItem", JSON.stringify(filteredProducts));
       }
     },
@@ -91,7 +91,7 @@ export const CartContextProvider = (props: Props) => {
     (product: CartProductType) => {
       let updateCart;
       if (product.quantity === 99) {
-        return toast.error("Ooop! Maximum reached");
+        return toast.error("Đã đạt số lượng tối đa");
       }
       if (cartProducts) {
         updateCart = [...cartProducts];
@@ -112,7 +112,7 @@ export const CartContextProvider = (props: Props) => {
     (product: CartProductType) => {
       let updateCart;
       if (product.quantity === 1) {
-        return toast.error("Ooop! Minimum reached");
+        return toast.error("Đã đạt số lượng tối thiểu");
       }
       if (cartProducts) {
         updateCart = [...cartProducts];

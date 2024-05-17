@@ -180,11 +180,11 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     axios
       .delete(`/api/order/${id}`)
       .then((res) => {
-        toast.success("Order deleted");
+        toast.success("Đơn hàng đã được xóa");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Failed to delete category");
+        toast.error("Đã có lỗi khi xóa");
         console.log(err);
       });
   }, []);

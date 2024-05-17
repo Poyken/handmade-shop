@@ -30,7 +30,7 @@ const AddCategoryForm = () => {
 
       // Check if category creation was successful
       if (response.status === 200) {
-        toast.success("Category created successfully");
+        toast.success("Danh mục đã được tạo thành công");
         router.refresh(); // Reload the page to reflect the changes
         reset({
           label: "",
@@ -38,11 +38,11 @@ const AddCategoryForm = () => {
           status: "",
         });
       } else {
-        toast.error("Failed to create category");
+        toast.error("Tạo danh mục thất bại");
       }
     } catch (error) {
       console.error("Error creating category:", error);
-      toast.error("An error occurred while creating category");
+      toast.error("Đã có lỗi xảy ra khi tạo danh mục");
     } finally {
       setIsLoading(false);
     }
@@ -55,13 +55,13 @@ const AddCategoryForm = () => {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="label"
         >
-          Category Label
+          Tên danh mục
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="label"
           type="text"
-          placeholder="Enter category label"
+          placeholder="Nhập tên danh mục"
           {...register("label", { required: "Category label is required" })}
         />
         {errors.label && (
@@ -73,13 +73,13 @@ const AddCategoryForm = () => {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="icon"
         >
-          Category Icon (Code)
+          Mã Icon danh mục (Code)
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="icon"
           type="text"
-          placeholder="Enter category icon URL"
+          placeholder="Nhập mã icon"
           {...register("icon", { required: "Category icon URL is required" })}
         />
         {errors.icon && (
@@ -91,7 +91,7 @@ const AddCategoryForm = () => {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="status"
         >
-          Category Status
+          Trạng thái
         </label>
         <select
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

@@ -38,6 +38,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
+  const [progress, setProgress] = useState(0);
   //   console.log("image>>>>>>>", images);
   const router = useRouter();
   const {
@@ -75,14 +76,14 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
     let uploadedImages: UploadedImageType[] = [];
     if (!data.category) {
       setIsLoading(false);
-      return toast.error("Category is not selected");
+      return toast.error("Không có danh mục được chọn");
     }
     if (!data.images || data.images.length === 0) {
       setIsLoading(false);
-      return toast.error("No selected Image");
+      return toast.error("Không có ảnh được chọn");
     }
     const handleImageUploads = async () => {
-      toast("Editing product, please wait...");
+      toast("Đang sửa, chờ chút ...");
       try {
         for (const item of data.images) {
           if (item.image) {
@@ -97,6 +98,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
                   const progress =
                     snapshot.bytesTransferred / snapshot.totalBytes;
                   console.log("Upload is " + progress + "% done");
+                  setProgress(progress);
                   switch (snapshot.state) {
                     case "paused":
                       console.log("Upload is paused");
@@ -129,7 +131,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
       } catch (error) {
         setIsLoading(false);
         console.log("Error handling image uploads", error);
-        return toast.error("Error handling image uploads");
+        return toast.error("Đã có lỗi khi upload ảnh");
       }
     };
     await handleImageUploads();
@@ -138,13 +140,13 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
     axios
       .patch(`/api/product/${product.id}`, productData)
       .then(() => {
-        toast.success("Product edited successfully");
+        toast.success("Sản phẩm đã được sửa");
         setIsProductCreated(true);
         router.refresh();
         router.push("/admin/manage-products");
       })
       .catch((error) => {
-        toast.error("Something went wrong when saving product to db");
+        toast.error("Đã có lỗi khi lưu data vào database");
       })
       .finally(() => {
         setIsLoading(false);
@@ -181,10 +183,10 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
   return (
     <Suspense>
       <>
-        <Heading title="Edit a Product" center></Heading>
+        <Heading title="Sửa sản phẩm" center></Heading>
         <Input
           id={"name"}
-          label={"Name"}
+          label={"Tên"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -192,7 +194,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         ></Input>
         <Input
           id={"price"}
-          label={"Price"}
+          label={"Giá"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -201,7 +203,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         ></Input>
         <Input
           id={"brand"}
-          label={"Brand"}
+          label={"Nhãn hiệu"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -209,7 +211,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         ></Input>
         <TextArea
           id={"description"}
-          label={"Description"}
+          label={"Mô tả"}
           register={register}
           errors={errors}
           disabled={isLoading}
@@ -218,10 +220,10 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         <CustomCheckBox
           id="inStock"
           register={register}
-          label="This product is in stock"
+          label="Sản phẩm còn hàng"
         ></CustomCheckBox>
         <div className="w-full font-medium">
-          <div className="mb-2 font-semibold">Select a Category</div>
+          <div className="mb-2 font-semibold">Chọn 1 danh mục</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto">
             {categories.map((item) => {
               if (item.label === "All") {
@@ -243,11 +245,11 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         <div className="w-full flex flex-col flex-wrap gap-4">
           <div>
             <div className="font-bold">
-              Select the available product colors and upload their images
+              Chọn màu sắc sản phẩm có sẵn và tải lên hình ảnh của chúng
             </div>
             <div className="text-sm">
-              You must upload an image for each of the color selected otherwise
-              your color selection will be ignored
+              Bạn phải tải lên hình ảnh cho mỗi màu đã chọn nếu không lựa chọn
+              màu của bạn sẽ bị bỏ qua
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -265,7 +267,11 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
           </div>
         </div>
         <Button
-          label={isLoading ? "Đang load..." : "Tạo sản phẩm"}
+          label={
+            isLoading
+              ? "Đang load..." + (100 * progress).toFixed(2) + "%"
+              : "Sửa sản phẩm"
+          }
           onClick={handleSubmit(onSubmit)}
         ></Button>
       </>

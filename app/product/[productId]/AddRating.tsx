@@ -59,18 +59,18 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
     if (data.rating === 0) {
       setIsLoading(false);
 
-      return toast.error("No rating selected");
+      return toast.error("Không có xếp hạng được chọn");
     }
     const ratingData = { ...data, userId: user?.id, product: product };
     axios
       .post("/api/rating", ratingData)
       .then(() => {
-        toast.success("Rating submitted");
+        toast.success("Đã gửi xếp hạng");
         router.refresh();
         reset();
       })
       .catch((error) => {
-        toast.error("Something went wrong");
+        toast.error("Đã có lỗi xảy ra");
       })
       .finally(() => {
         setIsLoading(false);

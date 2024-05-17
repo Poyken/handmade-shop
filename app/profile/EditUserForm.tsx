@@ -63,12 +63,12 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         `/api/user/${user.id}`,
         updatedUserData
       );
-      toast.success("User information updated successfully");
+      toast.success("Thông tin người dùng được cập nhật thành công");
       // Redirect or refresh user profile page after successful update
       router.push(`/`); // Redirect to user profile page
     } catch (error) {
       console.error("Error updating user information:", error);
-      toast.error("Failed to update user information. Please try again.");
+      toast.error("Không thể cập nhật thông tin người dùng. Vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }

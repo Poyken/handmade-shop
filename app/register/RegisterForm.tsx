@@ -40,7 +40,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Account created");
+        toast.success("Tài khoản được tạo");
         signIn("credentials", {
           email: data.email,
           password: data.password,
@@ -49,18 +49,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           if (callback?.ok) {
             router.push("/cart");
             router.refresh();
-            toast.success("Logged in");
+            toast.success("Đăng nhập thành công");
           }
           if (callback?.error) {
             toast.error(callback.error);
           }
         });
       })
-      .catch(() => toast.error("Something went wrong"))
+      .catch(() => toast.error("Đã có lỗi xảy ra"))
       .finally(() => setIsLoading(false));
   };
   if (currentUser) {
-    return <p className="text-center">Registered. Redirecting...</p>;
+    return (
+      <p className="text-center">Đăng kí thành công. Đang chuyển trang...</p>
+    );
   }
   return (
     <>

@@ -44,7 +44,7 @@ const CheckoutCLient = () => {
         })
         .catch((error) => {
           setError(true);
-          toast.error("Something went wrong");
+          toast.error("Đã có lỗi xảy ra");
         });
     }
   }, [cartProducts, paymentIntent]);

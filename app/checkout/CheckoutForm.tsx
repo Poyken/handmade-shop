@@ -50,7 +50,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
       })
       .then((result) => {
         if (!result.error) {
-          toast.success("Checkout Success");
+          toast.success("Thanh toán thành công");
           handleClearCart();
           handleSetPaymentSuccess(true);
           handleSetPaymentIntent(null);

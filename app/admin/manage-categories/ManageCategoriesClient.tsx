@@ -49,7 +49,7 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
     },
     {
       field: "label",
-      headerName: "Name",
+      headerName: "Tên",
       width: 220,
     },
     {
@@ -59,7 +59,7 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Trạng thái",
       width: 200,
       renderCell: (params) => {
         return (
@@ -127,11 +127,11 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
           status: "active",
         })
         .then((res) => {
-          toast.success("User status changed");
+          toast.success("Đã thay đổi trạng thái");
           router.refresh();
         })
         .catch((err) => {
-          toast.error("Oops! Something went wrong");
+          toast.error("Đã có lỗi xảy ra");
           console.log(err);
         });
     }
@@ -142,11 +142,11 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
           status: "inactive",
         })
         .then((res) => {
-          toast.success("User status changed");
+          toast.success("Đã thay đổi trạng thái");
           router.refresh();
         })
         .catch((err) => {
-          toast.error("Oops! Something went wrong");
+          toast.error("Đã có lỗi xảy ra");
           console.log(err);
         });
     }
@@ -156,11 +156,11 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
     axios
       .delete(`/api/category/${id}`)
       .then((res) => {
-        toast.success("Category deleted");
+        toast.success("Đã xóa danh mục");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Failed to delete category");
+        toast.error("Có lỗi khi xóa danh mục");
         console.log(err);
       });
   }, []);
@@ -168,7 +168,7 @@ const ManageCategoriesClient: React.FC<ManageCategoriesClientProps> = ({
   return (
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Manage Categories"></Heading>
+        <Heading title="Quản lý danh mục"></Heading>
       </div>
       <div style={{ height: 600, width: "100%" }}>
         <DataGrid
