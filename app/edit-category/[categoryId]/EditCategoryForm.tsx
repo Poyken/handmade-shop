@@ -13,11 +13,13 @@ interface EditCategoryFormProps {
 }
 
 const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
+  const [isLoading, setIsLoading] = useState(false); // Di chuyển useState ra ngoài nhánh điều kiện
+  // if (!category)
   if (!category)
     return (
       <NullData title="Oops! User with the given id does not exist or you don't have permission to edit"></NullData>
     );
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
