@@ -60,7 +60,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     <>
       <Heading title="Sign in to E-shop"></Heading>
       <Button
-        label={"Continue with Google"}
+        label={"Đăng nhập với Google"}
         outline
         icon={AiOutlineGoogle}
         onClick={() => {
