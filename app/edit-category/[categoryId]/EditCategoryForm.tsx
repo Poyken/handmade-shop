@@ -14,13 +14,8 @@ interface EditCategoryFormProps {
 
 const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
   const [isLoading, setIsLoading] = useState(false); // Di chuyển useState ra ngoài nhánh điều kiện
-  // if (!category)
-  if (!category)
-    return (
-      <NullData title="Oops! User with the given id does not exist or you don't have permission to edit"></NullData>
-    );
-  // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  // if (!category)
   const {
     register,
     handleSubmit,
@@ -35,7 +30,6 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
       status: category.status,
     },
   });
-
   useEffect(() => {
     // Reset form and state when user changes
     reset({
@@ -45,6 +39,20 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
       // Add other user properties here
     });
   }, [category]);
+  // Set value for dynamic form fields
+  useEffect(() => {
+    setValue("label", category.label);
+    setValue("icon", category.icon);
+    setValue("status", category.status);
+  }, [setValue, category]);
+
+  if (!category) {
+    return (
+      <NullData title="Oops! User with the given id does not exist or you don't have permission to edit"></NullData>
+    );
+  }
+  // const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
@@ -62,13 +70,6 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
       setIsLoading(false);
     }
   };
-
-  // Set value for dynamic form fields
-  useEffect(() => {
-    setValue("label", category.label);
-    setValue("icon", category.icon);
-    setValue("status", category.status);
-  }, [setValue, category]);
 
   return (
     <div className="flex flex-col gap-4">
