@@ -56,7 +56,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           }
         });
       })
-      .catch(() => toast.error("Đã có lỗi xảy ra"))
+      .catch(() => toast.error("Email đã tồn tại"))
       .finally(() => setIsLoading(false));
   };
   if (currentUser) {
