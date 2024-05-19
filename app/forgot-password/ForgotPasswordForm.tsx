@@ -35,8 +35,8 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({}) => {
     <>
       <h1 className="text-2xl font-semibold mb-4">Forgot Password</h1>
       <p className="mb-4">
-        Please enter your email address below to receive instructions on how to
-        reset your password.
+        Vui lòng nhập địa chỉ email của bạn bên dưới để nhận được hướng dẫn về
+        cách đặt lại mật khẩu của bạn.
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <Input
