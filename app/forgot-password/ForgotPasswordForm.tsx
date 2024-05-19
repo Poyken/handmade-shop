@@ -33,7 +33,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({}) => {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold mb-4">Forgot Password</h1>
+      <h1 className="text-2xl font-semibold mb-4">Quên mật khẩu</h1>
       <p className="mb-4">
         Vui lòng nhập địa chỉ email của bạn bên dưới để nhận được hướng dẫn về
         cách đặt lại mật khẩu của bạn.
@@ -49,7 +49,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({}) => {
           type="email"
         />
         <Button
-          label={isLoading ? "Đang load" : "Đổi mật khẩu"}
+          label={isLoading ? "Đang load" : "Gửi yêu cầu"}
           disabled={isLoading}
           onClick={handleSubmit(onSubmit)}
         />

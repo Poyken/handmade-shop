@@ -88,7 +88,7 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
   if (userReview || !deliveredOrder) return null;
   return (
     <div className="flex flex-col gap-2 max-w-[500px]">
-      <Heading title="Rate this product"></Heading>
+      <Heading title="Đánh giá sản phẩm"></Heading>
       <Rating
         onChange={(event, newValue) => {
           setCustomValue("rating", newValue);

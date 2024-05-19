@@ -1,7 +1,7 @@
 import AdminNav from "../components/admin/AdminNav";
 
 export const metadata = {
-  title: "Handmade-shop Admin",
+  title: "Trang quản trị Handmade-Shop",
   description: "Handmade-Shop Admin DashBoard",
 };
 

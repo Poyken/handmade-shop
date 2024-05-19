@@ -10,7 +10,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
   const router = useRouter();
   return (
     <div className="max-w-[300px] flex flex-col gap-2">
-      <Heading title="User Detail"></Heading>
+      <Heading title="Thông tin người dùng"></Heading>
       <p>UserId: {user?.id}</p>
       <p>Tên: {user?.name}</p>
       <p>Email: {user?.email}</p>

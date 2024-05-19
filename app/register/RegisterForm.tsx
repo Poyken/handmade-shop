@@ -66,7 +66,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   }
   return (
     <>
-      <Heading title="Sign up for E-shop"></Heading>
+      <Heading title="Đăng kí tài khoản Handmade-shop"></Heading>
       <Button
         label={"Đăng kí với Google"}
         outline

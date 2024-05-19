@@ -8,7 +8,7 @@ interface IPrams {
 }
 const Order = async ({ params }: { params: IPrams }) => {
   const order = await getOrderById(params);
-  if (!order) return <NullData title="No order"></NullData>;
+  if (!order) return <NullData title="Không có đơn hàng"></NullData>;
   return (
     <div className="p-8">
       <Container>
