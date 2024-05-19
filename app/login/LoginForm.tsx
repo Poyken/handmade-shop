@@ -80,7 +80,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       ></Input>
       <Input
         id="password"
-        label="Password"
+        label="Mật khẩu"
         disabled={isLoading}
         register={register}
         errors={errors}

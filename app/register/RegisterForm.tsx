@@ -78,7 +78,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="name"
-        label="Name"
+        label="Tên"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -95,7 +95,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       ></Input>
       <Input
         id="password"
-        label="Password"
+        label="Mật khẩu"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -104,7 +104,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       ></Input>
       <Input
         id="phone"
-        label="Phone"
+        label="Số điện thoại"
         disabled={isLoading}
         register={register}
         errors={errors}

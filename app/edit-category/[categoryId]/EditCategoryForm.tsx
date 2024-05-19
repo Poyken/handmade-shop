@@ -75,7 +75,7 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
     <div className="flex flex-col gap-4">
       <Input
         id="label"
-        label="Label"
+        label="Tên danh mục"
         register={register}
         errors={errors}
         disabled={isLoading}
@@ -89,15 +89,8 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
         disabled={isLoading}
         required
       />
-      {/* <Input
-        id="status"
-        label="Status"
-        register={register}
-        errors={errors}
-        disabled={isLoading}
-        required
-      /> */}
-      <label htmlFor="status">Status</label>
+
+      <label htmlFor="status">Trạng thái</label>
       <select
         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="status"
