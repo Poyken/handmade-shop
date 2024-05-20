@@ -61,14 +61,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   };
   if (currentUser) {
     return (
-      <p className="text-center">Đăng kí thành công. Đang chuyển trang...</p>
+      <p className="text-center">Đăng ký thành công. Đang chuyển trang...</p>
     );
   }
   return (
     <>
-      <Heading title="Đăng kí tài khoản Handmade-shop"></Heading>
+      <Heading title="Đăng ký tài khoản Handmade-shop"></Heading>
       <Button
-        label={"Đăng kí với Google"}
+        label={"Đăng ký với Google"}
         outline
         icon={AiOutlineGoogle}
         onClick={() => {
@@ -113,7 +113,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       ></Input>
 
       <Button
-        label={isLoading ? "Đang load" : "Đăng kí"}
+        label={isLoading ? "Đang load" : "Đăng ký"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
 

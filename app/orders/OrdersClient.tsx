@@ -191,7 +191,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   return (
     <div className="max-w-[1150px] m-auto text-xl">
       <div className="mb-4 mt-8">
-        <Heading title="Quản lý đơn hàng"></Heading>
+        <Heading title="Theo dõi đơn hàng"></Heading>
         <Link href="/">
           <IoMdArrowBack />
         </Link>

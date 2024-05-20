@@ -33,7 +33,7 @@ export default async function getProducts(params: IProductParams) {
       include: {
         reviews: {
           include: {
-            user: true,
+            user: false,
           },
           orderBy: {
             createdDate: "desc",
@@ -43,6 +43,6 @@ export default async function getProducts(params: IProductParams) {
     });
     return products;
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error("error", error);
   }
 }

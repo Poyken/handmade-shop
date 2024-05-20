@@ -19,65 +19,91 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
       <div className="mt-8">
         <Heading title="Chi tiết đơn hàng"></Heading>
       </div>
-      <div>ID Đơn hàng : {order.id}</div>
-      <div>
-        Tổng tiền:{""}
-        <span className="font-bold">{formatPrice(order.amount)}</span>
-      </div>
-      <div className="flex gap-2 items-center">
-        <div>Trạng thái thanh toán</div>
+      <div className="flex gap-2 justify-between items-center">
         <div>
-          {order.status === "pending" ? (
-            <Status
-              text="Đang chờ"
-              icon={MdAccessTimeFilled}
-              bg="bg-slate-200"
-              color="text-slate-700"
-            ></Status>
-          ) : order.status === "complete" ? (
-            <Status
-              text="Hoàn thành"
-              icon={MdDone}
-              bg="bg-green-200"
-              color="text-slate-700"
-            ></Status>
-          ) : (
-            ""
-          )}
+          <div>ID Đơn hàng : {order.id}</div>
+          <div>
+            Tổng tiền:{""}
+            <span className="font-bold">{formatPrice(order.amount)}</span>
+          </div>
+          <div className="flex gap-2 items-center">
+            <div>Trạng thái thanh toán</div>
+            <div>
+              {order.status === "pending" ? (
+                <Status
+                  text="Đang chờ"
+                  icon={MdAccessTimeFilled}
+                  bg="bg-slate-200"
+                  color="text-slate-700"
+                />
+              ) : order.status === "complete" ? (
+                <Status
+                  text="Hoàn thành"
+                  icon={MdDone}
+                  bg="bg-green-200"
+                  color="text-green-700"
+                />
+              ) : order.status === "canceled" ? (
+                <Status
+                  text="Đã hủy"
+                  icon={MdDone}
+                  bg="bg-rose-200"
+                  color="text-rose-700"
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-2 items-center">
+            <div>Trạng thái giao hàng</div>
+            <div>
+              {order.deliveryStatus === "pending" ? (
+                <Status
+                  text="Đang chờ"
+                  icon={MdAccessTimeFilled}
+                  bg="bg-slate-200"
+                  color="text-slate-700"
+                />
+              ) : order.deliveryStatus === "dispatched" ? (
+                <Status
+                  text="Đã gửi"
+                  icon={MdDeliveryDining}
+                  bg="bg-purple-200"
+                  color="text-purple-700"
+                />
+              ) : order.deliveryStatus === "delivered" ? (
+                <Status
+                  text="Đã giao"
+                  icon={MdDone}
+                  bg="bg-green-200"
+                  color="text-green-700"
+                />
+              ) : order.deliveryStatus === "canceled" ? (
+                <Status
+                  text="Đã hủy"
+                  icon={MdDone}
+                  bg="bg-rose-200"
+                  color="text-rose-700"
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div>
+            Thời gian đặt hàng:{" "}
+            {moment(order.createdDate).format("DD/MM/YYYY HH:mm:ss a ")}
+          </div>
         </div>
-      </div>
-      <div className="flex gap-2 items-center">
-        <div>Trạng thái giao hàng</div>
         <div>
-          {order.deliveryStatus === "pending" ? (
-            <Status
-              text="Đang chờ"
-              icon={MdAccessTimeFilled}
-              bg="bg-slate-200"
-              color="text-slate-700"
-            ></Status>
-          ) : order.deliveryStatus === "dispatched" ? (
-            <Status
-              text="Đã gửi"
-              icon={MdDeliveryDining}
-              bg="bg-purple-200"
-              color="text-purple-700"
-            ></Status>
-          ) : order.deliveryStatus === "delivered" ? (
-            <Status
-              text="Đã giao"
-              icon={MdDone}
-              bg="bg-green-200"
-              color="text-green-700"
-            ></Status>
-          ) : (
-            ""
-          )}
+          <div>Quốc gia: {order.address?.country}</div>
+          <div>Thành phố: {order.address?.city}</div>
+          <div>Địa chỉ 1: {order.address?.line1}</div>
+          <div>Địa chỉ 2: {order.address?.line2}</div>
+          <div>Mã zip: {order.address?.postal_code}</div>
+          <div>Tỉnh: {order.address?.state}</div>
         </div>
-      </div>
-      <div>
-        Thời gian đặt hàng:{" "}
-        {moment(order.createdDate).format("DD/MM/YYYY HH:mm:ss a ")}
       </div>
       <div>
         <h2 className="font-semibold mt-4 mb-2">Sản phẩm đã đặt</h2>

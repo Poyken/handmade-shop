@@ -84,6 +84,13 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-green-200"
                 color="text-green-700"
               />
+            ) : params.row.paymentStatus === "canceled" ? (
+              <Status
+                text="Đã hủy"
+                icon={MdDone}
+                bg="bg-rose-200"
+                color="text-rose-700"
+              />
             ) : (
               <></>
             )}
@@ -119,6 +126,13 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 bg="bg-green-200"
                 color="text-green-700"
               />
+            ) : params.row.deliveryStatus === "canceled" ? (
+              <Status
+                text="Đã hủy"
+                icon={MdDone}
+                bg="bg-rose-200"
+                color="text-rose-700"
+              />
             ) : (
               <></>
             )}
@@ -138,32 +152,41 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       renderCell: (params) => {
         return (
           <div className="flex justify-between gap-4 w-full">
-            <ActionBtn
-              icon={MdDeliveryDining}
-              onClick={() => {
-                handleDispatch(params.row.id);
-              }}
-            ></ActionBtn>
-            <ActionBtn
-              icon={MdDone}
-              onClick={() => {
-                handleDeliver(params.row.id);
-              }}
-            ></ActionBtn>
+            {params.row.paymentStatus === "complete" && (
+              <>
+                {params.row.deliveryStatus === "pending" && (
+                  <ActionBtn
+                    icon={MdDeliveryDining}
+                    onClick={() => {
+                      handleDispatch(params.row.id);
+                    }}
+                  ></ActionBtn>
+                )}
+                {params.row.deliveryStatus === "dispatched" && (
+                  <ActionBtn
+                    icon={MdDone}
+                    onClick={() => {
+                      handleDeliver(params.row.id);
+                    }}
+                  ></ActionBtn>
+                )}
+              </>
+            )}
             <ActionBtn
               icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
               }}
             ></ActionBtn>
-            {params.row.deliveryStatus === "pending" && (
-              <ActionBtn
-                icon={MdCancel}
-                onClick={() => {
-                  handleDelete(params.row.id);
-                }}
-              ></ActionBtn>
-            )}
+            {params.row.deliveryStatus === "pending" &&
+              params.row.paymentStatus === "pending" && (
+                <ActionBtn
+                  icon={MdCancel}
+                  onClick={() => {
+                    handleDelete(params.row.id);
+                  }}
+                ></ActionBtn>
+              )}
           </div>
         );
       },

@@ -70,8 +70,16 @@ const CheckoutCLient = () => {
       )}
       {loading && <div className="text-center">Thực hiện thanh toán....</div>}
       {error && (
-        <div className="text-center text-rose-500">
-          Something went Wrong....
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-center text-rose-500">
+            Đã có lỗi xảy ra....Thanh toán thất bại
+          </div>
+          <div className="max-w-[220px] w-full">
+            <Button
+              label="Trở về trang mua sắm"
+              onClick={() => router.push("/")}
+            ></Button>
+          </div>
         </div>
       )}
       {paymentSuccess && (

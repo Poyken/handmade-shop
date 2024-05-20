@@ -56,7 +56,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   <MenuItem onClick={toggleOpen}>Đăng nhập</MenuItem>
                 </Link>
                 <Link href={"/register"}>
-                  <MenuItem onClick={toggleOpen}>Đăng kí</MenuItem>
+                  <MenuItem onClick={toggleOpen}>Đăng ký</MenuItem>
                 </Link>
               </div>
             )}

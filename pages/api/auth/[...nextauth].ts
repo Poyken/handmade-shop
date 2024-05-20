@@ -25,7 +25,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
-          throw new Error("Invalid email or password");
+          throw new Error("Sai email hoặc mật khẩu");
         }
         const user = await prisma.user.findUnique({
           where: {
@@ -33,14 +33,14 @@ export const authOptions: AuthOptions = {
           },
         });
         if (!user || !user?.hashedPassword) {
-          throw new Error("Invalid email or password");
+          throw new Error("Sai email hoặc mật khẩu");
         }
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
           user.hashedPassword
         );
         if (!isCorrectPassword) {
-          throw new Error("Invalid email or password");
+          throw new Error("Sai email hoặc mật khẩu");
         }
         return user;
       },
