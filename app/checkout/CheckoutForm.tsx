@@ -1,5 +1,4 @@
 "use client";
-
 import { useCart } from "@/hook/useCart";
 import { formatPrice } from "@/utils/formatPrice";
 import {
@@ -16,17 +15,24 @@ import Button from "../components/Button";
 interface CheckoutFormProps {
   clientSecret: string;
   handleSetPaymentSuccess: (value: boolean) => void;
+  handleClearCart: () => void;
+  setError: (value: boolean) => void;
+  router: any;
 }
+
 const CheckoutForm: React.FC<CheckoutFormProps> = ({
   clientSecret,
   handleSetPaymentSuccess,
+  handleClearCart,
+  setError,
+  router,
 }) => {
-  const { cartTotalAmount, handleClearCart, handleSetPaymentIntent } =
-    useCart();
+  const { cartTotalAmount, handleSetPaymentIntent } = useCart();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const formattedPrice = formatPrice(cartTotalAmount);
+
   useEffect(() => {
     if (!stripe) {
       return;
@@ -54,14 +60,17 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           handleClearCart();
           handleSetPaymentSuccess(true);
           handleSetPaymentIntent(null);
+        } else {
+          setIsLoading(false);
+          setError(true);
         }
-        setIsLoading(false);
       });
   };
+
   return (
     <form onSubmit={handleSubmit} id="payment-form">
       <div className="mb-6">
-        <Heading title="Nhập thông tin để hoàn tất thanh toán"></Heading>
+        <Heading title="Nhập thông tin để hoàn tất thanh toán" />
       </div>
       <h2 className="font-semibold mb-2">Thông tin địa chỉ</h2>
       <AddressElement
@@ -69,12 +78,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           mode: "shipping",
           allowedCountries: ["US", "KE", "NG", "GH", "ZM", "VN"],
         }}
-      ></AddressElement>
+      />
       <h2 className="font-semibold mt-4 mb2 ">Thông tin thanh toán</h2>
-      <PaymentElement
-        id="payment-element"
-        options={{ layout: "tabs" }}
-      ></PaymentElement>
+      <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
       <div className="py-4 text-center text-slate-700 text-4xl font-bold">
         Tổng: {formattedPrice}
       </div>
@@ -82,7 +88,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
         label={isLoading ? "Đang xử lý" : "Thanh toán ngay"}
         disabled={isLoading || !stripe || !elements}
         onClick={() => {}}
-      ></Button>
+      />
     </form>
   );
 };

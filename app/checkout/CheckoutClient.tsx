@@ -7,11 +7,13 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CheckoutForm from "./CheckoutForm";
 import Button from "../components/Button";
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
-const CheckoutCLient = () => {
-  const { cartProducts, paymentIntent, handleSetPaymentIntent } = useCart();
+
+const CheckoutClient = () => {
+  const { cartProducts, handleClearCart, handleSetPaymentIntent } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
@@ -28,7 +30,6 @@ const CheckoutCLient = () => {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           items: cartProducts,
-          payment_intent_id: paymentIntent,
         }),
       })
         .then((res) => {
@@ -47,7 +48,8 @@ const CheckoutCLient = () => {
           toast.error("Đã có lỗi xảy ra");
         });
     }
-  }, [cartProducts, paymentIntent]);
+  }, [cartProducts]);
+
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -55,9 +57,11 @@ const CheckoutCLient = () => {
       labels: "floating",
     },
   };
+
   const handleSetPaymentSuccess = useCallback((value: boolean) => {
     setPaymentSuccess(value);
   }, []);
+
   return (
     <div className="w-full">
       {clientSecret && cartProducts && (
@@ -65,7 +69,10 @@ const CheckoutCLient = () => {
           <CheckoutForm
             clientSecret={clientSecret}
             handleSetPaymentSuccess={handleSetPaymentSuccess}
-          ></CheckoutForm>
+            handleClearCart={handleClearCart}
+            setError={setError}
+            router={router}
+          />
         </Elements>
       )}
       {loading && <div className="text-center">Thực hiện thanh toán....</div>}
@@ -78,7 +85,7 @@ const CheckoutCLient = () => {
             <Button
               label="Trở về trang mua sắm"
               onClick={() => router.push("/")}
-            ></Button>
+            />
           </div>
         </div>
       )}
@@ -89,7 +96,7 @@ const CheckoutCLient = () => {
             <Button
               label="Xem đơn hàng"
               onClick={() => router.push("/orders")}
-            ></Button>
+            />
           </div>
         </div>
       )}
@@ -97,4 +104,4 @@ const CheckoutCLient = () => {
   );
 };
 
-export default CheckoutCLient;
+export default CheckoutClient;

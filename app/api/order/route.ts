@@ -10,10 +10,10 @@ export async function PUT(request: Request) {
     return NextResponse.error();
   }
   const body = await request.json();
-  const { id, deliveryStatus } = body;
+  const { id, deliveryStatus, status } = body;
   const order = await prisma.order.update({
     where: { id: id },
-    data: { deliveryStatus },
+    data: { deliveryStatus, status },
   });
   return NextResponse.json(order);
 }

@@ -87,6 +87,13 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                 bg="bg-green-200"
                 color="text-green-700"
               />
+            ) : params.row.paymentStatus === "canceled" ? (
+              <Status
+                text="Đã hủy"
+                icon={MdDone}
+                bg="bg-rose-200"
+                color="text-rose-700"
+              />
             ) : (
               <></>
             )}
@@ -110,7 +117,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
               />
             ) : params.row.deliveryStatus === "dispatched" ? (
               <Status
-                text="Đã gửi "
+                text="Đã gửi"
                 icon={MdDeliveryDining}
                 bg="bg-purple-200"
                 color="text-purple-700"
@@ -121,6 +128,13 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                 icon={MdDone}
                 bg="bg-green-200"
                 color="text-green-700"
+              />
+            ) : params.row.deliveryStatus === "canceled" ? (
+              <Status
+                text="Đã hủy"
+                icon={MdDone}
+                bg="bg-rose-200"
+                color="text-rose-700"
               />
             ) : (
               <></>
