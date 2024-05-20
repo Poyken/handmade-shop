@@ -165,7 +165,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
               <ActionBtn
                 icon={MdCancel}
                 onClick={() => {
-                  handleDelete(params.row.id);
+                  handleCancel(params.row.id);
                 }}
               ></ActionBtn>
             )}
@@ -174,6 +174,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                 icon={MdShoppingCartCheckout}
                 onClick={() => {
                   router.push(`/checkout`);
+                  handleDelete(params.row.id);
                 }}
               ></ActionBtn>
             )}
@@ -182,6 +183,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                 icon={MdOutlinePublishedWithChanges}
                 onClick={() => {
                   router.push(`/cart`);
+                  handleDelete(params.row.id);
                 }}
               ></ActionBtn>
             )}
@@ -192,13 +194,35 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   ];
   const handleDelete = useCallback(async (id: string) => {
     axios
+      // .put(`/api/order`, {
+      //   id,
+      //   status: "canceled",
+      //   deliveryStatus: "canceled",
+      // })
       .delete(`/api/order/${id}`)
       .then((res) => {
-        toast.success("Đơn hàng đã được xóa");
+        // toast.success("Đã xóa đơn hàng");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Đã có lỗi khi xóa");
+        // toast.error("Đã có lỗi khi xóa đơn hàng");
+        console.log(err);
+      });
+  }, []);
+  const handleCancel = useCallback(async (id: string) => {
+    axios
+      .put(`/api/order`, {
+        id,
+        status: "canceled",
+        deliveryStatus: "canceled",
+      })
+      // .delete(`/api/order/${id}`)
+      .then((res) => {
+        // toast.success("Đã xóa đơn hàng");
+        router.refresh();
+      })
+      .catch((err) => {
+        // toast.error("Đã có lỗi khi xóa đơn hàng");
         console.log(err);
       });
   }, []);

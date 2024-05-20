@@ -183,7 +183,8 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 <ActionBtn
                   icon={MdCancel}
                   onClick={() => {
-                    handleDelete(params.row.id);
+                    handleCancel(params.row.id);
+                    // handleDelete(params.row.id);
                   }}
                 ></ActionBtn>
               )}
@@ -194,7 +195,29 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   ];
   const handleDelete = useCallback(async (id: string) => {
     axios
+      // .put(`/api/order`, {
+      //   id,
+      //   status: "canceled",
+      //   deliveryStatus: "canceled",
+      // })
       .delete(`/api/order/${id}`)
+      .then((res) => {
+        // toast.success("Đã xóa đơn hàng");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Đã có lỗi khi xóa đơn hàng");
+        console.log(err);
+      });
+  }, []);
+  const handleCancel = useCallback(async (id: string) => {
+    axios
+      .put(`/api/order`, {
+        id,
+        status: "canceled",
+        deliveryStatus: "canceled",
+      })
+      // .delete(`/api/order/${id}`)
       .then((res) => {
         toast.success("Đã xóa đơn hàng");
         router.refresh();
