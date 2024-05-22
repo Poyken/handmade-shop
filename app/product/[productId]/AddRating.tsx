@@ -12,19 +12,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
-// export async function POST(request: Request) {
-//   const currentUser = await getCurrentUser();
-//   if (!currentUser) {
-//     return NextResponse.error();
-//   }
-//   const body = await request.json();
-//   const { comment, rating, product, userId } = body;
-//   const deliveredOrder = currentUser?.orders.some(
-//     (order) =>
-//       order.products.find((item) => item.id === product.id) &&
-//       order.deliveryStatus === "delivered"
-//   );
-// }
 interface AddRatingProps {
   product: Product & {
     reviews: Review[];

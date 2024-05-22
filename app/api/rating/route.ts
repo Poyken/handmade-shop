@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Review } from "@prisma/client";
-
+import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -29,6 +29,19 @@ export async function POST(request: Request) {
       userId,
       createdDate: new Date(),
     },
+  });
+  return NextResponse.json(review);
+}
+export async function PUT(request: Request) {
+  const currentUser = await getCurrentUser();
+  if (!currentUser || currentUser.role !== "ADMIN") {
+    return NextResponse.error();
+  }
+  const body = await request.json();
+  const { id, rating, comment } = body;
+  const review = await prisma.review.update({
+    where: { id: id },
+    data: { rating, comment },
   });
   return NextResponse.json(review);
 }
