@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       rating,
       productId: product.id,
       userId,
+      createdDate: new Date(),
     },
   });
   return NextResponse.json(review);

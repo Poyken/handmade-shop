@@ -22,7 +22,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
                   <Avatar src={review?.user?.image}></Avatar>
                   <div className="font-semibold">{review?.user?.name}</div>
                   <div className="font-light">
-                    {moment(review.createDate).format("DD/MM/YYYY")}
+                    {moment(review.createdDate).format("DD/MM/YYYY HH:mm:ss a")}
                   </div>
                 </div>
                 <div className="mt-2">
