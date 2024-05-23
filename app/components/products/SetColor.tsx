@@ -23,16 +23,16 @@ const SetColor: React.FC<SetColorProps> = ({
           {images.map((image) => {
             return (
               <div
-                key={image.image}
+                key={image.color}
                 onClick={() => handleColorSelect(image)}
                 className={`w-7 h-7 rounded-full border-teal-300 flex items-center justify-center ${
-                  cartProduct.selectedImg.image === image.image
+                  cartProduct.selectedImg.colorCode === image.colorCode
                     ? "border-[1.5px]"
                     : "border-none"
                 }`}
               >
                 <div
-                  style={{ backgroundImage: `url(${image.image})` }}
+                  style={{ backgroundColor: `${image.colorCode}` }}
                   className="w-5 h-5 rounded-full border-[1.2px] border-slate-300 cursor-pointer"
                 ></div>
               </div>

@@ -5,15 +5,29 @@ import Button from "@/app/components/Button";
 import Heading from "@/app/components/products/Heading";
 import { Rating } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
-
+import { SafeUser } from "@/types";
+import { Order, Product, Review } from "@prisma/client";
+import { log } from "console";
+import { useState } from "react";
+import EditRating from "./EditRatingUser";
+import { FaSync } from "react-icons/fa";
 interface ListRatingProps {
-  product: any;
+  product: Product & {
+    reviews: Review[];
+  };
+  user:
+    | (SafeUser & {
+        orders: Order[];
+      })
+    | null;
 }
-const ListRating: React.FC<ListRatingProps> = ({ product }) => {
+const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
   if (product.reviews.length === 0) return null;
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
+  const handleToggle = () => {
+    setToggle(!toggle); // Đảo ngược toggle khi được gọi
+  };
   return (
     <div>
       <Heading title="Đánh giá sản phẩm"></Heading>
@@ -21,8 +35,8 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
         {product.reviews &&
           product.reviews.map((review: any) => {
             return (
-              <div className="flex justify-between">
-                {toggle ? (
+              <div className="flex justify-between" key={review.id}>
+                {toggle || user?.id !== review.user.id ? (
                   <div key={review.id} className="max-w-300px">
                     <div className="flex gap-2 items-center">
                       <Avatar src={review?.user?.image}></Avatar>
@@ -40,24 +54,33 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  <EditRating
+                    product={product}
+                    user={user}
+                    review={review}
+                    toggle={toggle} // Truyền giá trị toggle xuống EditRating
+                    handleToggle={handleToggle} // Truyền hàm handleToggle xuống EditRating
+                  ></EditRating>
                 )}
-                <div className="flex max-w-[200px] gap-3 max-h-[40px]">
-                  <Button
-                    label=""
-                    onClick={() => {
-                      setToggle(!toggle);
-                    }}
-                    icon={MdEdit}
-                    small
-                  ></Button>
-                  <Button
-                    label=""
-                    onClick={() => {}}
-                    icon={MdDeleteForever}
-                    small
-                  ></Button>
-                </div>
+
+                {user?.id === review.user.id && (
+                  <div className="flex max-w-[200px] gap-3 max-h-[40px]">
+                    <Button
+                      label=""
+                      onClick={() => {
+                        return handleToggle();
+                      }}
+                      icon={toggle ? MdEdit : FaSync}
+                      small
+                    ></Button>
+                    <Button
+                      label=""
+                      onClick={() => {}}
+                      icon={MdDeleteForever}
+                      small
+                    ></Button>
+                  </div>
+                )}
               </div>
             );
           })}
