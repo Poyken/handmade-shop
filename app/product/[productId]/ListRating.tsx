@@ -1,5 +1,4 @@
 "use client";
-
 import Avatar from "@/app/components/Avatar";
 import Button from "@/app/components/Button";
 import Heading from "@/app/components/products/Heading";
@@ -13,6 +12,7 @@ import EditRating from "./EditRatingUser";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+
 interface ListRatingProps {
   product: Product & {
     reviews: Review[];
@@ -23,30 +23,33 @@ interface ListRatingProps {
       })
     | null;
 }
+
 const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
-  if (product.reviews.length === 0) return null;
-  const [toggle, setToggle] = useState(true);
-  const router = useRouter();
+  const [toggle, setToggle] = useState(true); // Di chuyển useState ra ngoài
+  const router = useRouter(); // Di chuyển useRouter ra ngoài
+
   const handleToggle = () => {
-    setToggle(!toggle); // Đảo ngược toggle khi được gọi
+    setToggle(!toggle);
   };
-  const handleDelete = useCallback(async (id: string) => {
-    axios
-      // .put(`/api/order`, {
-      //   id,
-      //   status: "canceled",
-      //   deliveryStatus: "canceled",
-      // })
-      .delete(`/api/rating/${id}`)
-      .then((res) => {
-        toast.success("Đã xóa bình luận");
-        router.refresh();
-      })
-      .catch((err) => {
-        toast.error("Đã có lỗi khi xóa bình luận");
-        console.log(err);
-      });
-  }, []);
+
+  const handleDelete = useCallback(
+    async (id: string) => {
+      axios
+        .delete(`/api/rating/${id}`)
+        .then((res) => {
+          toast.success("Đã xóa bình luận");
+          router.refresh();
+        })
+        .catch((err) => {
+          toast.error("Đã có lỗi khi xóa bình luận");
+          console.log(err);
+        });
+    },
+    [router]
+  );
+
+  if (product.reviews.length === 0) return null;
+
   return (
     <div>
       <Heading title="Đánh giá sản phẩm"></Heading>
@@ -77,8 +80,8 @@ const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
                     product={product}
                     user={user}
                     review={review}
-                    toggle={toggle} // Truyền giá trị toggle xuống EditRating
-                    handleToggle={handleToggle} // Truyền hàm handleToggle xuống EditRating
+                    toggle={toggle}
+                    handleToggle={handleToggle}
                   ></EditRating>
                 )}
 
