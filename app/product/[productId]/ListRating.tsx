@@ -8,10 +8,11 @@ import moment from "moment";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { SafeUser } from "@/types";
 import { Order, Product, Review } from "@prisma/client";
-import { log } from "console";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import EditRating from "./EditRatingUser";
-import { FaSync } from "react-icons/fa";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 interface ListRatingProps {
   product: Product & {
     reviews: Review[];
@@ -25,9 +26,27 @@ interface ListRatingProps {
 const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
   if (product.reviews.length === 0) return null;
   const [toggle, setToggle] = useState(true);
+  const router = useRouter();
   const handleToggle = () => {
     setToggle(!toggle); // Đảo ngược toggle khi được gọi
   };
+  const handleDelete = useCallback(async (id: string) => {
+    axios
+      // .put(`/api/order`, {
+      //   id,
+      //   status: "canceled",
+      //   deliveryStatus: "canceled",
+      // })
+      .delete(`/api/rating/${id}`)
+      .then((res) => {
+        toast.success("Đã xóa bình luận");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Đã có lỗi khi xóa bình luận");
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
       <Heading title="Đánh giá sản phẩm"></Heading>
@@ -70,12 +89,14 @@ const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
                       onClick={() => {
                         return handleToggle();
                       }}
-                      icon={toggle ? MdEdit : FaSync}
+                      icon={MdEdit}
                       small
                     ></Button>
                     <Button
                       label=""
-                      onClick={() => {}}
+                      onClick={() => {
+                        handleDelete(review.id);
+                      }}
                       icon={MdDeleteForever}
                       small
                     ></Button>

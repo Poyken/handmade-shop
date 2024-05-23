@@ -7,7 +7,7 @@ import { Rating } from "@mui/material";
 import { Order, Product, Review } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 interface EditRatingProps {
@@ -24,7 +24,13 @@ interface EditRatingProps {
   handleToggle: (toggle: boolean) => void; // Nhận hàm handleToggle từ ListRating
 }
 
-const EditRating: React.FC<EditRatingProps> = ({ product, user, review }) => {
+const EditRating: React.FC<EditRatingProps> = ({
+  product,
+  user,
+  review,
+  toggle,
+  handleToggle,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -55,10 +61,10 @@ const EditRating: React.FC<EditRatingProps> = ({ product, user, review }) => {
     axios
       .patch(`/api/rating/${review.id}`, ratingData)
       .then(() => {
-        toast.success("Đã gửi xếp hạng");
+        toast.success("Đã gửi cập nhật bình luận");
         router.refresh();
         reset();
-        handleToggle();
+        handleToggle(!toggle);
       })
       .catch((error) => {
         toast.error("Đã có lỗi xảy ra");
@@ -77,6 +83,7 @@ const EditRating: React.FC<EditRatingProps> = ({ product, user, review }) => {
   //     return review.userId === user.id;
   //   });
   //   if (userReview || !deliveredOrder) return null;
+
   return (
     <div className="flex flex-col gap-2 max-w-[500px]">
       {/* <Heading title="Đánh giá sản phẩm"></Heading> */}
@@ -96,7 +103,7 @@ const EditRating: React.FC<EditRatingProps> = ({ product, user, review }) => {
         required
       ></Input>
       <Button
-        label={isLoading ? "Đang load" : "Đánh giá sản phẩm"}
+        label={isLoading ? "Đang load" : "Cập nhật bình luận"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
     </div>
@@ -104,6 +111,3 @@ const EditRating: React.FC<EditRatingProps> = ({ product, user, review }) => {
 };
 
 export default EditRating;
-function handleToggle() {
-  throw new Error("Function not implemented.");
-}
