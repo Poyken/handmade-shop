@@ -6,25 +6,11 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-  LineController,
-  LineElement,
-  PointElement,
-  Title,
+  scales,
 } from "chart.js";
-import { Chart } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title
-);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 interface BarGraphProps {
   data: GraphData[];
 }
@@ -51,11 +37,7 @@ const BarGraph: React.FC<BarGraphProps> = ({ data }) => {
   const options = {
     scales: { y: { beginAtZero: true } },
   };
-  return (
-    <div>
-      <Chart type="bar" options={options} data={chartData} />
-    </div>
-  );
+  return <Bar data={chartData} options={options}></Bar>;
 };
 
 export default BarGraph;
