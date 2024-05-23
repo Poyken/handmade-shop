@@ -29,10 +29,10 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      user: user.name,
-      email: user.email,
-      hashedPassword: user.hashedPassword,
-      phone: user.phone,
+      user: user?.name,
+      email: user?.email,
+      hashedPassword: user?.hashedPassword,
+      phone: user?.phone,
       // Add other user properties here
     },
   });
@@ -40,10 +40,10 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
   useEffect(() => {
     // Reset form and state when user changes
     reset({
-      name: user.name,
-      email: user.email,
-      hashedPassword: user.hashedPassword,
-      phone: user.phone,
+      name: user?.name,
+      email: user?.email,
+      hashedPassword: user?.hashedPassword,
+      phone: user?.phone,
       // Add other user properties here
     });
   }, [user, reset]);
