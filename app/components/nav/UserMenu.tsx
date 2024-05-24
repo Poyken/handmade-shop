@@ -19,7 +19,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   }, []);
   return (
     <>
-      <div className={`relative z-${isOpen ? 30 : 20}`}>
+      <div className={`relative z-30`}>
         <div
           onClick={toggleOpen}
           className={`p-2 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700`}
@@ -63,7 +63,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           </div>
         )}
       </div>
-      {isOpen ? <BackDrop onClick={toggleOpen} z={1}></BackDrop> : null}
+      {isOpen ? <BackDrop onClick={toggleOpen}></BackDrop> : null}
     </>
   );
 };
