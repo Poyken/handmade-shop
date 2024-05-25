@@ -46,7 +46,10 @@ const ToggleBar: React.FC<ICategory> = ({ categories }) => {
                   {categories.map(
                     (item: any) =>
                       item.status === "active" && (
-                        <div className="hover:bg-slate-100 w-full">
+                        <div
+                          className="hover:bg-slate-100 w-full"
+                          key={item.label}
+                        >
                           <Category
                             key={item.label}
                             label={item.label}
