@@ -202,7 +202,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       // })
       .delete(`/api/order/${id}`)
       .then((res) => {
-        // toast.success("Đã xóa đơn hàng");
+        toast.success("Đã xóa đơn hàng");
         router.refresh();
       })
       .catch((err) => {
@@ -219,11 +219,11 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       })
       // .delete(`/api/order/${id}`)
       .then((res) => {
-        toast.success("Đã xóa đơn hàng");
+        toast.success("Đã hủy đơn hàng");
         router.refresh();
       })
       .catch((err) => {
-        toast.error("Đã có lỗi khi xóa đơn hàng");
+        toast.error("Đã có lỗi khi hủy đơn hàng");
         console.log(err);
       });
   }, []);

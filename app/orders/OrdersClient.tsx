@@ -46,11 +46,11 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     });
   }
   const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 120,
-    },
+    // {
+    //   field: "id",
+    //   headerName: "ID",
+    //   width: 120,
+    // },
     {
       field: "customer",
       headerName: "Tên khách hàng",
@@ -178,7 +178,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                 }}
               ></ActionBtn>
             )}
-            {params.row.paymentStatus === "pending" && (
+            {/* {params.row.paymentStatus === "pending" && (
               <ActionBtn
                 icon={MdOutlinePublishedWithChanges}
                 onClick={() => {
@@ -186,7 +186,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
                   handleDelete(params.row.id);
                 }}
               ></ActionBtn>
-            )}
+            )} */}
           </div>
         );
       },
@@ -218,7 +218,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
       })
       // .delete(`/api/order/${id}`)
       .then((res) => {
-        // toast.success("Đã xóa đơn hàng");
+        toast.success("Đã thay đổi trạng thái đơn hàng");
         router.refresh();
       })
       .catch((err) => {
