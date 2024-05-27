@@ -79,7 +79,7 @@ const CheckoutClient = () => {
       {error && (
         <div className="flex flex-col items-center gap-4">
           <div className="text-center text-rose-500">
-            Đã có lỗi xảy ra....Thanh toán thất bại
+            Vui lòng thanh toán để hoàn tất đơn hàng hoặc
           </div>
           <div className="max-w-[220px] w-full">
             <Button
