@@ -30,7 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/cart");
+      router.push("/");
       router.refresh();
     }
   }, []);
@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
-        router.push("/cart");
+        router.push("/");
         router.refresh();
         toast.success("Đăng nhập thành công");
       }

@@ -31,11 +31,41 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   const router = useRouter();
   useEffect(() => {
     if (currentUser) {
-      router.push("/cart");
+      router.push("/");
       router.refresh();
     }
   }, []);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    // Biểu thức chính quy để kiểm tra email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Kiểm tra email
+    if (!emailPattern.test(data.email)) {
+      toast.error("Email không hợp lệ");
+      return;
+    }
+
+    // Biểu thức chính quy để kiểm tra mật khẩu
+    // Mật khẩu phải có ít nhất 8 ký tự, chứa ít nhất một chữ hoa, một chữ thường, một chữ số và một ký tự đặc biệt
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Kiểm tra mật khẩu
+    if (!passwordPattern.test(data.password)) {
+      toast.error(
+        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
+      );
+      return;
+    }
+    // Biểu thức chính quy để kiểm tra số điện thoại Việt Nam
+    // Số điện thoại phải bắt đầu bằng số 0, theo sau là 9 hoặc 10 chữ số
+    const phonePattern = /^0\d{9}$/;
+
+    // Kiểm tra số điện thoại
+    if (!phonePattern.test(data.phone)) {
+      toast.error("Số điện thoại không hợp lệ");
+      return;
+    }
     setIsLoading(true);
     axios
       .post("/api/register", data)
@@ -47,7 +77,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
-            router.push("/cart");
+            router.push("/");
             router.refresh();
             toast.success("Đăng nhập thành công");
           }
