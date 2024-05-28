@@ -11,11 +11,23 @@ import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SafeUser } from "@/types";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import firebaseApp from "@/libs/firebase";
+
 interface RegisterFormProps {
   currentUser: SafeUser | null;
 }
+
 const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
+
   const {
     register,
     handleSubmit,
@@ -28,14 +40,49 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       phone: "",
     },
   });
+
   const router = useRouter();
+
   useEffect(() => {
     if (currentUser) {
       router.push("/");
       router.refresh();
     }
   }, []);
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const uploadImage = async () => {
+    if (!image) return "";
+
+    const fileName = `${new Date().getTime()}-${image.name}`;
+    const storage = getStorage(firebaseApp);
+    const storageRef = ref(storage, `users/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    return new Promise<string>((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(resolve).catch(reject);
+        }
+      );
+    });
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // Biểu thức chính quy để kiểm tra email
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -57,6 +104,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       );
       return;
     }
+
     // Biểu thức chính quy để kiểm tra số điện thoại Việt Nam
     // Số điện thoại phải bắt đầu bằng số 0, theo sau là 9 hoặc 10 chữ số
     const phonePattern = /^0\d{9}$/;
@@ -66,34 +114,42 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       toast.error("Số điện thoại không hợp lệ");
       return;
     }
+
     setIsLoading(true);
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        toast.success("Tài khoản được tạo");
-        signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        }).then((callback) => {
-          if (callback?.ok) {
-            router.push("/");
-            router.refresh();
-            toast.success("Đăng nhập thành công");
-          }
-          if (callback?.error) {
-            toast.error(callback.error);
-          }
-        });
-      })
-      .catch(() => toast.error("Email đã tồn tại"))
-      .finally(() => setIsLoading(false));
+
+    try {
+      const imageUrl = await uploadImage();
+      const requestData = { ...data, image: imageUrl };
+
+      await axios.post("/api/register", requestData);
+      toast.success("Tài khoản được tạo");
+
+      signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      }).then((callback) => {
+        if (callback?.ok) {
+          router.push("/");
+          router.refresh();
+          toast.success("Đăng nhập thành công");
+        } else if (callback?.error) {
+          toast.error(callback.error);
+        }
+      });
+    } catch (error) {
+      toast.error("Có lỗi xảy ra trong quá trình đăng ký");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   if (currentUser) {
     return (
       <p className="text-center">Đăng ký thành công. Đang chuyển trang...</p>
     );
   }
+
   return (
     <>
       <Heading title="Đăng ký tài khoản Handmade-shop"></Heading>
@@ -141,12 +197,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         required
         type="number"
       ></Input>
-
+      <input
+        id="image"
+        // label="Ảnh đại diện"
+        disabled={isLoading}
+        // register={register}
+        // errors={errors}
+        type="file"
+        onChange={handleImageChange}
+      ></input>
       <Button
         label={isLoading ? "Đang load" : "Đăng ký"}
         onClick={handleSubmit(onSubmit)}
       ></Button>
-
       <p className="text-sm">
         Bạn đã có tài khoản?{" "}
         <Link className="underline" href={"/login"}>
