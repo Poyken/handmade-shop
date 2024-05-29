@@ -6,7 +6,7 @@ import getOrdersByUserId from "@/actions/getOrdersByUserId";
 const Orders = async () => {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
-    return <NullData title="Truy cập bị từ chối từ vai trò của bạn"></NullData>;
+    return <NullData title="Yêu cầu đăng nhập để tiếp tục"></NullData>;
   }
   const orders = await getOrdersByUserId(currentUser.id);
   if (!orders) {

@@ -224,7 +224,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         </div>
       )}
       <Button
-        label={isLoading ? "Đang load" : "Đăng ký"}
+        label={
+          isLoading ? "Đang load..." + progress.toFixed(2) + "%" : "Đăng ký"
+        }
         onClick={handleSubmit(onSubmit)}
       ></Button>
       <p className="text-sm">

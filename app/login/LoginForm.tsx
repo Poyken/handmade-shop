@@ -35,6 +35,27 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     }
   }, []);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    // Biểu thức chính quy để kiểm tra email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Kiểm tra email
+    if (!emailPattern.test(data.email)) {
+      toast.error("Email không hợp lệ");
+      return;
+    }
+
+    // Biểu thức chính quy để kiểm tra mật khẩu
+    // Mật khẩu phải có ít nhất 8 ký tự, chứa ít nhất một chữ hoa, một chữ thường, một chữ số và một ký tự đặc biệt
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Kiểm tra mật khẩu
+    if (!passwordPattern.test(data.password)) {
+      toast.error(
+        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
+      );
+      return;
+    }
     setIsLoading(true);
     signIn("credentials", {
       ...data,

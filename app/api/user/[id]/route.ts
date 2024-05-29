@@ -23,7 +23,7 @@ export async function PATCH(
   const currentUser = await getCurrentUser();
   if (!currentUser) return NextResponse.error();
   const body = await request.json();
-  const { id, name, email, hashedPassword, phone } = body;
+  const { id, name, email, hashedPassword, phone, image } = body;
 
   // Check if the user exists
   const existingUser = await prisma.user.findUnique({
@@ -43,6 +43,7 @@ export async function PATCH(
         ? await hashPassword(hashedPassword)
         : hashedPassword || existingUser.hashedPassword,
       phone: phone || existingUser.phone,
+      image: image || existingUser.image,
     },
   });
 
