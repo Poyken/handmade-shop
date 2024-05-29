@@ -26,6 +26,7 @@ interface RegisterFormProps {
 const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null); // Thêm trạng thái để lưu URL xem trước ảnh
   const [progress, setProgress] = useState(0);
 
   const {
@@ -52,7 +53,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
+      const file = e.target.files[0];
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string); // Cập nhật URL xem trước ảnh
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -206,6 +213,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         type="file"
         onChange={handleImageChange}
       ></input>
+      {imagePreview && (
+        <div className="mt-4">
+          <p>Ảnh đại diện của bạn:</p>
+          <img
+            src={imagePreview}
+            alt="Avatar Preview"
+            className="w-32 h-32 object-cover rounded-full"
+          />
+        </div>
+      )}
       <Button
         label={isLoading ? "Đang load" : "Đăng ký"}
         onClick={handleSubmit(onSubmit)}

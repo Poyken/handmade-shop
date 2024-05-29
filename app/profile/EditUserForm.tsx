@@ -42,7 +42,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
     reset({
       name: user?.name,
       email: user?.email,
-      hashedPassword: user?.hashedPassword,
+      hashedPassword: "",
       phone: user?.phone,
       // Add other user properties here
     });
@@ -103,7 +103,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
           register={register}
           errors={errors}
           disabled={isLoading}
-          required
+          // required
           type="password"
         />
         <Input

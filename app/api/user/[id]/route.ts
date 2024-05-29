@@ -39,8 +39,9 @@ export async function PATCH(
     data: {
       name: name || existingUser.name,
       email: email || existingUser.email,
-      hashedPassword:
-        (await hashPassword(hashedPassword)) || existingUser.hashedPassword,
+      hashedPassword: hashedPassword
+        ? await hashPassword(hashedPassword)
+        : hashedPassword || existingUser.hashedPassword,
       phone: phone || existingUser.phone,
     },
   });
