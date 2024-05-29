@@ -24,9 +24,11 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(user?.image); // Thêm trạng thái để lưu URL xem trước ảnh
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    user?.image || null
+  ); // Thêm trạng thái để lưu URL xem trước ảnh
   const [progress, setProgress] = useState(0);
-
+  // setImagePreview(user?.image);
   const {
     register,
     handleSubmit,
