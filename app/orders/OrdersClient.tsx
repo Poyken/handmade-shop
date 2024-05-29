@@ -173,8 +173,8 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
               <ActionBtn
                 icon={MdShoppingCartCheckout}
                 onClick={() => {
-                  router.push(`/checkout`);
                   handleDelete(params.row.id);
+                  router.push(`/checkout`);
                 }}
               ></ActionBtn>
             )}
