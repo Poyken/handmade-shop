@@ -204,15 +204,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         required
         type="number"
       ></Input>
-      <input
-        id="image"
-        // label="Ảnh đại diện"
-        disabled={isLoading}
-        // register={register}
-        // errors={errors}
-        type="file"
-        onChange={handleImageChange}
-      ></input>
+      <label
+        htmlFor="image"
+        className="peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        Chọn ảnh đại diện
+        <input
+          id="image"
+          className="hidden"
+          // label="Ảnh đại diện"
+          disabled={isLoading}
+          // register={register}
+          // errors={errors}
+          type="file"
+          onChange={handleImageChange}
+        ></input>
+      </label>
       {imagePreview && (
         <div className="mt-4">
           <p>Ảnh đại diện của bạn:</p>

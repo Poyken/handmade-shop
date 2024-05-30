@@ -182,12 +182,19 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
         required
         type="number"
       />
-      <input
-        id="image"
-        type="file"
-        onChange={handleImageChange}
-        disabled={isLoading}
-      />
+      <label
+        htmlFor="image"
+        className="peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        Chọn ảnh đại diện
+        <input
+          id="image"
+          className="hidden"
+          type="file"
+          onChange={handleImageChange}
+          disabled={isLoading}
+        />
+      </label>
       {imagePreview && (
         <div className="mt-4">
           <p>Ảnh đại diện của bạn:</p>
